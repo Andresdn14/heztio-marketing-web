@@ -1,0 +1,263 @@
+/* ================================================================
+   Heztio — Design Tokens
+   ----------------------------------------------------------------
+   Colors and typography derived from the Heztio brand assets:
+   navy primary mark, gradient (blue → magenta → pink) accent,
+   geometric sans logotype.
+   ================================================================ */
+
+/* -------- Webfonts -------- */
+/* Brand display: Montserrat (Black/ExtraBold for the wordmark feel).
+   UI body: Inter (high-x-height neutral; pairs well with Montserrat).
+   Mono: JetBrains Mono.
+   NOTE: substituted from Google Fonts pending official font files. */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ============== BRAND ============== */
+  --hz-navy-900:  #0B1426;   /* deepest, used in gradient sweep */
+  --hz-navy-800:  #0E1A2F;   /* primary brand navy — wordmark, headers */
+  --hz-navy-700:  #16243F;
+  --hz-navy-600:  #1F3253;
+
+  /* Gradient stops (left → right on the brand banner) */
+  --hz-grad-blue:    #2A3F8F;
+  --hz-grad-indigo:  #3B3D86;
+  --hz-grad-violet:  #6E4A8E;
+  --hz-grad-magenta: #B23E6B;
+  --hz-grad-coral:   #C94B5C;
+
+  /* Soft pastel logo gradient (mark variant 1) */
+  --hz-pastel-pink:   #E89BB8;
+  --hz-pastel-mauve:  #B98AC1;
+  --hz-pastel-lilac:  #8A7FBE;
+
+  /* Signature gradients */
+  --hz-gradient-brand: linear-gradient(105deg, #2A3F8F 0%, #3B3D86 28%, #6E4A8E 55%, #B23E6B 78%, #C94B5C 100%);
+  --hz-gradient-soft:  linear-gradient(180deg, #E89BB8 0%, #B98AC1 55%, #8A7FBE 100%);
+  --hz-gradient-sweep: radial-gradient(ellipse 80% 60% at 28% 50%, #2A3F8F 0%, transparent 60%),
+                       radial-gradient(ellipse 70% 60% at 78% 50%, #C94B5C 0%, transparent 55%),
+                       linear-gradient(180deg, #0B1426, #0E1A2F);
+
+  /* ============== NEUTRALS (cool slate, tuned to navy) ============== */
+  --hz-slate-50:   #F6F8FB;
+  --hz-slate-100:  #ECEFF5;
+  --hz-slate-200:  #DCE2EC;
+  --hz-slate-300:  #BFC8D8;
+  --hz-slate-400:  #94A1B8;
+  --hz-slate-500:  #6B7993;
+  --hz-slate-600:  #4D5A75;
+  --hz-slate-700:  #364158;
+  --hz-slate-800:  #1F2A3F;
+  --hz-slate-900:  #0E1A2F;
+
+  --hz-white: #FFFFFF;
+  --hz-paper: #FAFBFD;     /* page background, slightly cool */
+  --hz-ink:   #0E1A2F;     /* alias of navy-800 */
+
+  /* ============== SEMANTIC ============== */
+  --hz-success-50:  #E7F6EF;
+  --hz-success-500: #1FA971;
+  --hz-success-700: #14764F;
+
+  --hz-warning-50:  #FFF4E0;
+  --hz-warning-500: #E89B2A;
+  --hz-warning-700: #A66B12;
+
+  --hz-danger-50:   #FBE7EC;
+  --hz-danger-500:  #C94B5C;        /* re-uses the brand coral */
+  --hz-danger-700:  #8E2E3D;
+
+  --hz-info-50:     #E6ECF7;
+  --hz-info-500:    #2A3F8F;        /* re-uses the brand blue */
+  --hz-info-700:    #1B2A66;
+
+  /* ============== SEMANTIC ROLES ============== */
+  --fg-1: var(--hz-navy-800);       /* primary text, headlines */
+  --fg-2: var(--hz-slate-700);      /* secondary text, body */
+  --fg-3: var(--hz-slate-500);      /* muted, captions, meta */
+  --fg-4: var(--hz-slate-400);      /* disabled, placeholder */
+  --fg-on-brand: var(--hz-white);   /* on navy / on gradient */
+
+  --bg-1: var(--hz-white);          /* surface */
+  --bg-2: var(--hz-paper);          /* page background */
+  --bg-3: var(--hz-slate-50);       /* subtle fill */
+  --bg-4: var(--hz-slate-100);      /* hover fill */
+  --bg-brand:   var(--hz-navy-800);
+  --bg-accent:  var(--hz-gradient-brand);
+
+  --border-1: var(--hz-slate-200);  /* hairline */
+  --border-2: var(--hz-slate-300);  /* stronger */
+  --border-focus: var(--hz-grad-blue);
+
+  /* ============== ELEVATION ============== */
+  --shadow-xs: 0 1px 2px rgba(14, 26, 47, 0.06);
+  --shadow-sm: 0 1px 3px rgba(14, 26, 47, 0.08), 0 1px 2px rgba(14, 26, 47, 0.04);
+  --shadow-md: 0 4px 12px rgba(14, 26, 47, 0.08), 0 2px 4px rgba(14, 26, 47, 0.04);
+  --shadow-lg: 0 12px 32px rgba(14, 26, 47, 0.12), 0 4px 8px rgba(14, 26, 47, 0.05);
+  --shadow-xl: 0 24px 56px rgba(14, 26, 47, 0.18), 0 8px 16px rgba(14, 26, 47, 0.06);
+  --shadow-focus: 0 0 0 4px rgba(42, 63, 143, 0.18);
+
+  /* ============== RADII ============== */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-pill: 999px;
+
+  /* ============== SPACING (4pt base) ============== */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ============== TYPE FAMILIES ============== */
+  --font-display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;  /* logotype, hero, big numbers */
+  --font-sans:    'Inter', 'Helvetica Neue', Arial, sans-serif;       /* UI, body */
+  --font-mono:    'JetBrains Mono', ui-monospace, 'Menlo', monospace;
+
+  /* ============== TYPE SCALE (clamp-friendly) ============== */
+  --text-xs:   12px;
+  --text-sm:   14px;
+  --text-base: 16px;
+  --text-lg:   18px;
+  --text-xl:   20px;
+  --text-2xl:  24px;
+  --text-3xl:  30px;
+  --text-4xl:  38px;
+  --text-5xl:  48px;
+  --text-6xl:  64px;
+  --text-7xl:  84px;
+
+  /* ============== MOTION ============== */
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in:    cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:    120ms;
+  --dur-base:    180ms;
+  --dur-slow:    320ms;
+}
+
+/* ================================================================
+   Semantic typography styles — apply directly via class names.
+   ================================================================ */
+.hz-display-1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--text-7xl);
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  color: var(--fg-1);
+  text-transform: uppercase;
+}
+.hz-display-2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-6xl);
+  letter-spacing: -0.02em;
+  line-height: 1.0;
+  color: var(--fg-1);
+  text-transform: uppercase;
+}
+.hz-h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-5xl);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--fg-1);
+}
+.hz-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-4xl);
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: var(--fg-1);
+}
+.hz-h3 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--text-2xl);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--fg-1);
+}
+.hz-h4 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--text-xl);
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+  color: var(--fg-1);
+}
+.hz-eyebrow {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+.hz-body-lg {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+.hz-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-base);
+  line-height: 1.55;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+.hz-body-sm {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+.hz-caption {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  color: var(--fg-3);
+}
+.hz-mono {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+  letter-spacing: -0.01em;
+}
+.hz-tag {
+  /* Like the "SIMPLE" word in the lockup — heavy weight, tight tracking */
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Utility: render text in the brand gradient. */
+.hz-text-gradient {
+  background: var(--hz-gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

@@ -1,135 +1,1847 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-CO">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heztio — Simplifying Building Life</title>
-    <meta name="description" content="Heztio is the smart building management platform that simplifies every aspect of building life for administrators, residents, and communities.">
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-    <meta name="theme-color" content="#0c1828" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Heztio — Gestiónalo simple</title>
+<meta name="description" content="Heztio es el software para administrar conjuntos residenciales en Colombia. Paquetería, reservas, comunicación, incidencias y documentos en un solo lugar." />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<meta name="theme-color" content="#0E1A2F" />
+<link rel="stylesheet" href="colors_and_type.css" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--fg-1);
+    background: var(--bg-1);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #fff;
-            color: #333;
-            text-align: center;
-            padding: 2rem;
-        }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
 
-        .container {
-            max-width: 600px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: fadeIn 1.2s ease-out;
-        }
+  /* ============================================================
+     NAVIGATION
+     ============================================================ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.78);
+    border-bottom: 1px solid var(--border-1);
+  }
+  .nav-inner {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .nav-logo img { height: 28px; width: auto; }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    flex: 1;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--fg-2);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .nav-links a:hover { color: var(--fg-1); }
+  .nav-cta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
 
-        .logo {
-            width: 350px;
-            margin-bottom: 2rem;
-        }
+  /* ============================================================
+     BUTTONS
+     ============================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: var(--radius-md);
+    transition: all var(--dur-base) var(--ease-out);
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--hz-navy-800);
+    color: var(--hz-white);
+    box-shadow: var(--shadow-sm);
+  }
+  .btn-primary:hover {
+    background: var(--hz-navy-900);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    color: var(--fg-1);
+  }
+  .btn-ghost:hover { background: var(--bg-4); }
+  .btn-light {
+    background: var(--hz-white);
+    color: var(--hz-navy-800);
+  }
+  .btn-light:hover { background: var(--hz-slate-100); transform: translateY(-1px); }
+  .btn-outline-light {
+    color: var(--hz-white);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .btn-outline-light:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+  .btn-lg {
+    padding: 16px 28px;
+    font-size: 16px;
+    border-radius: var(--radius-lg);
+  }
 
-        .coming-soon {
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #fd9892;
-            margin-bottom: 1.5rem;
-            background: rgba(253, 152, 146, 0.1);
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-        }
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero {
+    position: relative;
+    background: var(--hz-gradient-sweep);
+    color: var(--hz-white);
+    overflow: hidden;
+    padding: 96px 0 0;
+  }
+  /* Subtle film grain via SVG noise */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.45 0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity: 0.18;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  /* glow blobs */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 85% 20%, rgba(201,75,92,0.25), transparent 70%),
+      radial-gradient(ellipse 50% 50% at 15% 80%, rgba(42,63,143,0.35), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding-bottom: 80px;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px 6px 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+  }
+  .hero-eyebrow .dot {
+    width: 18px; height: 18px;
+    background: var(--hz-gradient-brand);
+    border-radius: 999px;
+    display: inline-block;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(48px, 6vw, 88px);
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+    margin: 24px 0 24px;
+    text-transform: uppercase;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(105deg, #E89BB8 0%, #B98AC1 50%, #8A7FBE 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-style: normal;
+  }
+  .hero p.lede {
+    font-size: 20px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.82);
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 28px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+  .hero-meta span::before {
+    content: "✓";
+    margin-right: 8px;
+    color: var(--hz-pastel-pink);
+    font-weight: 700;
+  }
 
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #2d2d2d;
-            line-height: 1.3;
-            margin-bottom: 1rem;
-        }
+  /* Hero product card */
+  .hero-product {
+    position: relative;
+  }
+  .product-card {
+    background: var(--hz-white);
+    color: var(--fg-1);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 30px 80px rgba(8, 10, 30, 0.5), 0 12px 24px rgba(8, 10, 30, 0.3);
+    overflow: hidden;
+    transform: rotate(-1deg);
+  }
+  .product-card-bar {
+    height: 36px;
+    background: var(--hz-slate-50);
+    border-bottom: 1px solid var(--border-1);
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 6px;
+  }
+  .product-card-bar .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--hz-slate-300);
+  }
+  .product-card-bar .url {
+    margin-left: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-3);
+  }
+  .product-card-body {
+    padding: 22px;
+  }
+  .pc-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .pc-title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .pc-sub {
+    font-size: 12px;
+    color: var(--fg-3);
+    margin-top: 2px;
+  }
+  .pc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .pc-stat {
+    background: var(--hz-slate-50);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+  }
+  .pc-stat .label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-bottom: 6px;
+  }
+  .pc-stat .value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+  .pc-stat.gradient {
+    background: var(--hz-gradient-brand);
+    color: white;
+  }
+  .pc-stat.gradient .label, .pc-stat.gradient .value { color: white; }
+  .pc-list {
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .pc-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .pc-row:last-child { border-bottom: none; }
+  .pc-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6E4A8E, #B23E6B);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+  }
+  .pc-row .who {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .pc-row .who small {
+    display: block;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--fg-3);
+  }
+  .pc-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .pc-badge.success { background: var(--hz-success-50); color: var(--hz-success-700); }
+  .pc-badge.warning { background: var(--hz-warning-50); color: var(--hz-warning-700); }
+  .pc-badge.info    { background: var(--hz-info-50); color: var(--hz-info-700); }
+  .pc-time { font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
 
-        h1 span {
-            color: #fd9892;
-        }
+  /* floating notification */
+  .float-notif {
+    position: absolute;
+    bottom: -28px;
+    left: -32px;
+    background: var(--hz-white);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 50px rgba(8,10,30,0.4);
+    padding: 14px 18px 14px 14px;
+    display: flex; align-items: center; gap: 12px;
+    transform: rotate(-3deg);
+    width: 280px;
+  }
+  .float-notif .ic {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--hz-success-50);
+    color: var(--hz-success-700);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .float-notif .txt { font-size: 13px; line-height: 1.35; color: var(--fg-1); }
+  .float-notif .txt small { display: block; font-size: 11px; color: var(--fg-3); margin-top: 2px; }
 
-        .tagline {
-            font-size: 1.1rem;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
-        }
+  /* ============================================================
+     LOGO STRIP
+     ============================================================ */
+  .logos {
+    background: var(--hz-white);
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .logos-label {
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-bottom: 32px;
+  }
+  .logos-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .logo-item {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--fg-3);
+    opacity: 0.7;
+    transition: opacity var(--dur-base) var(--ease-out);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-item:hover { opacity: 1; }
+  .logo-item .dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    background: var(--hz-slate-400);
+  }
 
-        .divider {
-            width: 60px;
-            height: 3px;
-            background: #fd9892;
-            margin: 0 auto 2.5rem;
-            border-radius: 2px;
-        }
+  /* ============================================================
+     SECTION SCAFFOLD
+     ============================================================ */
+  section.section { padding: 120px 0; }
+  section.section.tight { padding: 80px 0; }
+  .section-head { text-align: center; max-width: 720px; margin: 0 auto 64px; }
+  .section-head.left { text-align: left; margin-left: 0; }
+  .eyebrow {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--hz-grad-magenta);
+    margin-bottom: 16px;
+  }
+  h2.section-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(32px, 4vw, 52px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--fg-1);
+    margin-bottom: 20px;
+  }
+  .section-head p {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--fg-2);
+    text-wrap: pretty;
+  }
 
-        .contact {
-            font-size: 0.9rem;
-            color: #999;
-        }
+  /* ============================================================
+     FEATURES — bento grid
+     ============================================================ */
+  .features {
+    background: var(--hz-paper);
+  }
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+  }
+  .bento-card {
+    background: var(--hz-white);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 320px;
+    transition: transform var(--dur-slow) var(--ease-out), box-shadow var(--dur-slow) var(--ease-out);
+  }
+  .bento-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .bento-card .feat-icon {
+    width: 44px; height: 44px;
+    border-radius: var(--radius-md);
+    background: var(--hz-info-50);
+    color: var(--hz-info-700);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .bento-card h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    margin-bottom: 10px;
+    color: var(--fg-1);
+  }
+  .bento-card p {
+    font-size: 15px;
+    color: var(--fg-2);
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+  .bento-card .feat-visual {
+    margin-top: auto;
+    padding-top: 28px;
+  }
 
-        .contact a {
-            color: #fd9892;
-            text-decoration: none;
-            font-weight: 500;
-        }
+  /* feature 1: Visitas - wide */
+  .b1 { grid-column: span 4; }
+  .b1 .visit-list {
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--hz-paper);
+  }
+  .b1 .visit-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .b1 .visit-row:last-child { border-bottom: none; }
+  .b1 .av {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #2A3F8F, #6E4A8E);
+    color: white; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .b1 .info { flex: 1; }
+  .b1 .info .name { font-size: 13px; font-weight: 600; }
+  .b1 .info .apt { font-size: 11px; color: var(--fg-3); }
+  .b1 .time { font-family: var(--font-mono); font-size: 12px; color: var(--fg-3); }
 
-        .contact a:hover {
-            text-decoration: underline;
-        }
+  /* feature 2: Pagos - tall */
+  .b2 { grid-column: span 2; grid-row: span 2; background: var(--hz-navy-800); color: var(--hz-white); border-color: transparent; }
+  .b2 h3 { color: var(--hz-white); }
+  .b2 p { color: rgba(255,255,255,0.7); }
+  .b2 .feat-icon { background: rgba(255,255,255,0.1); color: var(--hz-white); }
+  .b2 .pago-amount {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 56px;
+    letter-spacing: -0.03em;
+    background: var(--hz-gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+    margin-top: 20px;
+  }
+  .b2 .pago-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 12px;
+  }
+  .b2 .pago-bar {
+    margin-top: 16px;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .b2 .pago-bar > div {
+    height: 100%;
+    width: 87%;
+    background: var(--hz-gradient-brand);
+    border-radius: 999px;
+  }
+  .b2 .pago-detail {
+    margin-top: 12px;
+    display: flex; justify-content: space-between;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+  }
+  .b2 .pago-list { margin-top: auto; padding-top: 24px; }
+  .b2 .pago-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 12px;
+  }
+  .b2 .pago-row .apt { color: rgba(255,255,255,0.7); font-family: var(--font-mono); }
+  .b2 .pago-row .check {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--hz-success-500); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+  }
 
-        footer {
-            position: fixed;
-            bottom: 2rem;
-            font-size: 0.8rem;
-            color: #bbb;
-        }
+  /* feature 3: Reservas */
+  .b3 { grid-column: span 2; }
+  .b3 .cal {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-top: 16px;
+  }
+  .b3 .cal .day {
+    aspect-ratio: 1;
+    background: var(--hz-slate-50);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--fg-3);
+  }
+  .b3 .cal .day.booked { background: var(--hz-gradient-brand); color: white; }
+  .b3 .cal .day.today { box-shadow: inset 0 0 0 1.5px var(--hz-navy-800); color: var(--fg-1); }
+  .b3 .cal .day.disabled { opacity: 0.4; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  /* feature 4: Comunicación */
+  .b4 { grid-column: span 2; }
+  .b4 .msg {
+    background: var(--hz-slate-50);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+  .b4 .msg .from {
+    font-size: 11px;
+    color: var(--fg-3);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .b4 .msg .body { font-size: 13px; color: var(--fg-1); line-height: 1.4; }
+  .b4 .msg.brand { background: var(--hz-info-50); }
+  .b4 .msg.brand .from { color: var(--hz-info-700); }
 
-        @media (max-width: 480px) {
-            .logo { width: 250px; }
-            h1 { font-size: 1.6rem; }
-            .tagline { font-size: 1rem; }
-        }
-    </style>
+  /* feature 5: Paquetería */
+  .b5 { grid-column: span 2; }
+  .b5 .pkg-stack {
+    margin-top: 16px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .b5 .pkg-row {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--hz-slate-50);
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    font-size: 12px;
+  }
+  .b5 .pkg-row .ic {
+    width: 28px; height: 28px;
+    background: var(--hz-warning-50);
+    color: var(--hz-warning-700);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .b5 .pkg-row .info { flex: 1; }
+  .b5 .pkg-row .info .name { font-weight: 600; }
+  .b5 .pkg-row .info .from { color: var(--fg-3); font-size: 10px; }
+
+  /* ============================================================
+     SPLIT — Para administradores / residentes
+     ============================================================ */
+  .split { background: var(--hz-white); padding: 120px 0; }
+  .split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .split-card {
+    background: var(--hz-paper);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-2xl);
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .split-card.dark {
+    background: var(--hz-navy-800);
+    color: var(--hz-white);
+    border-color: transparent;
+  }
+  .split-card .role {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--hz-info-50);
+    color: var(--hz-info-700);
+    margin-bottom: 20px;
+  }
+  .split-card.dark .role {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.9);
+  }
+  .split-card h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 36px;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .split-card.dark h3 { color: var(--hz-white); }
+  .split-card p.lede {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--fg-2);
+    margin-bottom: 28px;
+  }
+  .split-card.dark p.lede { color: rgba(255,255,255,0.75); }
+  .split-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .split-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .split-list li .check {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--hz-success-50);
+    color: var(--hz-success-700);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .split-card.dark .split-list li .check {
+    background: rgba(31,169,113,0.18);
+    color: #5DDFA8;
+  }
+  .split-card.dark .split-list li { color: rgba(255,255,255,0.85); }
+
+  /* tiny phone mock */
+  .phone-mock {
+    margin-top: 32px;
+    background: var(--hz-white);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: var(--shadow-md);
+  }
+  .phone-mock .ph-status {
+    font-size: 11px;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+    display: flex; justify-content: space-between;
+  }
+  .phone-mock .ph-card {
+    background: var(--hz-gradient-brand);
+    color: white;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .phone-mock .ph-card .lbl {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; opacity: 0.8;
+  }
+  .phone-mock .ph-card .val {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 28px; letter-spacing: -0.02em;
+    margin-top: 6px;
+  }
+  .phone-mock .ph-card .pay-btn {
+    margin-top: 14px;
+    background: white;
+    color: var(--hz-navy-800);
+    padding: 8px 14px; border-radius: 8px;
+    font-size: 12px; font-weight: 700;
+    display: inline-block;
+  }
+  .phone-mock .ph-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border-1);
+    font-size: 12px;
+  }
+  .phone-mock .ph-row:first-of-type { border-top: none; }
+  .phone-mock .ph-row .ic {
+    width: 28px; height: 28px;
+    background: var(--hz-info-50);
+    color: var(--hz-info-700);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .phone-mock .ph-row .text { flex: 1; }
+  .phone-mock .ph-row .text strong { display: block; color: var(--fg-1); font-size: 13px; }
+  .phone-mock .ph-row .text small { color: var(--fg-3); }
+
+  /* admin mini chart */
+  .admin-mock {
+    margin-top: 32px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+  }
+  .admin-mock .head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .admin-mock .head .title { font-size: 13px; font-weight: 600; color: white; }
+  .admin-mock .head .sub { font-size: 11px; color: rgba(255,255,255,0.5); }
+  .admin-mock .chart {
+    display: flex; align-items: flex-end;
+    gap: 6px; height: 80px;
+    margin-bottom: 14px;
+  }
+  .admin-mock .chart .bar {
+    flex: 1;
+    background: rgba(255,255,255,0.12);
+    border-radius: 3px 3px 0 0;
+    position: relative;
+  }
+  .admin-mock .chart .bar::before {
+    content: "";
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: var(--hz-gradient-brand);
+    border-radius: 3px 3px 0 0;
+    height: var(--h, 50%);
+  }
+  .admin-mock .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 14px;
+  }
+  .admin-mock .stat .v {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+  .admin-mock .stat .l {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  /* ============================================================
+     STATS BAND
+     ============================================================ */
+  .stats-band {
+    background: var(--hz-paper);
+    padding: 80px 0;
+    border-top: 1px solid var(--border-1);
+    border-bottom: 1px solid var(--border-1);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    text-align: left;
+  }
+  .stats-grid .stat-cell {
+    border-left: 2px solid var(--hz-slate-200);
+    padding-left: 20px;
+  }
+  .stats-grid .stat-cell:first-child {
+    border-color: var(--hz-grad-magenta);
+  }
+  .stats-grid .stat-cell .num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 5vw, 64px);
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    color: var(--fg-1);
+  }
+  .stats-grid .stat-cell .lbl {
+    font-size: 14px;
+    color: var(--fg-2);
+    margin-top: 12px;
+    line-height: 1.4;
+  }
+
+  /* ============================================================
+     PRICING
+     ============================================================ */
+  .pricing { background: var(--hz-white); }
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .price-card {
+    background: var(--hz-white);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-xl);
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .price-card.featured {
+    background: var(--hz-navy-800);
+    color: var(--hz-white);
+    border-color: transparent;
+    box-shadow: var(--shadow-lg);
+    transform: scale(1.02);
+  }
+  .price-card.featured h3 { color: white; }
+  .price-card .tier-badge {
+    position: absolute;
+    top: -12px; right: 24px;
+    background: var(--hz-gradient-brand);
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+  .price-card h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .price-card .desc {
+    font-size: 14px;
+    color: var(--fg-3);
+    margin-bottom: 24px;
+    line-height: 1.4;
+  }
+  .price-card.featured .desc { color: rgba(255,255,255,0.6); }
+  .price-card .price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .price-card .price .amount {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 56px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .price-card .price .currency {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--fg-3);
+  }
+  .price-card.featured .price .currency { color: rgba(255,255,255,0.6); }
+  .price-card .price .per {
+    font-size: 14px; color: var(--fg-3);
+    margin-left: 4px;
+  }
+  .price-card.featured .price .per { color: rgba(255,255,255,0.6); }
+  .price-card .price-meta {
+    font-size: 12px;
+    color: var(--fg-3);
+    margin-bottom: 28px;
+  }
+  .price-card.featured .price-meta { color: rgba(255,255,255,0.6); }
+  .price-features {
+    list-style: none;
+    flex: 1;
+    margin-bottom: 28px;
+  }
+  .price-features li {
+    display: flex; gap: 10px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border-1);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .price-features li:first-child { border-top: none; }
+  .price-card.featured .price-features li { border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85); }
+  .price-features .check {
+    flex-shrink: 0;
+    color: var(--hz-grad-magenta);
+    font-weight: 700;
+    margin-top: 1px;
+  }
+  .price-card.featured .price-features .check { color: var(--hz-pastel-pink); }
+  .price-card .btn { width: 100%; justify-content: center; }
+  .price-card.featured .btn-primary { background: var(--hz-white); color: var(--hz-navy-800); }
+  .price-card.featured .btn-primary:hover { background: var(--hz-slate-100); }
+
+  /* ============================================================
+     TESTIMONIAL
+     ============================================================ */
+  .testimonial {
+    background: var(--hz-paper);
+  }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .testi {
+    background: var(--hz-white);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    display: flex; flex-direction: column;
+  }
+  .testi blockquote {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--fg-1);
+    margin-bottom: 24px;
+    flex: 1;
+    text-wrap: pretty;
+  }
+  .testi .author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-1);
+  }
+  .testi .author .av {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2A3F8F, #B23E6B);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+  }
+  .testi .author .n { font-weight: 600; font-size: 14px; }
+  .testi .author .role { font-size: 12px; color: var(--fg-3); }
+
+  /* ============================================================
+     FAQ
+     ============================================================ */
+  .faq { background: var(--hz-white); }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .faq-list {
+    border-top: 1px solid var(--border-1);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--border-1);
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--fg-1);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary .plus {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border: 1px solid var(--border-1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--fg-2);
+    transition: all var(--dur-base) var(--ease-out);
+  }
+  .faq-item[open] summary .plus {
+    background: var(--hz-navy-800);
+    color: white;
+    border-color: var(--hz-navy-800);
+    transform: rotate(45deg);
+  }
+  .faq-item .answer {
+    padding: 0 0 24px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--fg-2);
+    max-width: 720px;
+  }
+
+  /* ============================================================
+     CTA FINAL
+     ============================================================ */
+  .cta-final {
+    position: relative;
+    background: var(--hz-gradient-sweep);
+    color: var(--hz-white);
+    padding: 120px 0;
+    overflow: hidden;
+  }
+  .cta-final::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.45 0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity: 0.18;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  .cta-final-inner {
+    position: relative; z-index: 2;
+    text-align: center;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .cta-final h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(48px, 7vw, 96px);
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cta-final h2 .accent {
+    background: linear-gradient(105deg, #E89BB8 0%, #B98AC1 50%, #8A7FBE 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cta-final p {
+    font-size: 19px;
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 36px;
+    text-wrap: pretty;
+  }
+  .cta-final .actions {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer {
+    background: var(--hz-navy-900);
+    color: rgba(255,255,255,0.7);
+    padding: 64px 0 32px;
+  }
+  .foot-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .foot-top img { height: 28px; margin-bottom: 16px; }
+  .foot-top .blurb {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    max-width: 320px;
+    line-height: 1.5;
+  }
+  .foot-col h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 16px;
+  }
+  .foot-col a {
+    display: block;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    padding: 6px 0;
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .foot-col a:hover { color: white; }
+  .foot-bottom {
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+  .foot-bottom .legal { display: flex; gap: 24px; }
+
+  /* ============================================================
+     ICONS (inline SVG, lucide-style stroke)
+     ============================================================ */
+  .ic-svg { width: 1em; height: 1em; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 980px) {
+    .container { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; padding-bottom: 100px; }
+    .hero { padding-top: 64px; }
+    .float-notif { left: 0; bottom: -20px; }
+    .bento { grid-template-columns: 1fr 1fr; }
+    .b1, .b2, .b3, .b4, .b5 { grid-column: span 2; grid-row: auto; }
+    .split-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .price-grid { grid-template-columns: 1fr; }
+    .price-card.featured { transform: none; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .faq-grid { grid-template-columns: 1fr; gap: 32px; }
+    .foot-top { grid-template-columns: 1fr 1fr; }
+    section.section { padding: 80px 0; }
+  }
+  @media (max-width: 600px) {
+    .bento { grid-template-columns: 1fr; }
+    .b1, .b2, .b3, .b4, .b5 { grid-column: span 1; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .foot-top { grid-template-columns: 1fr; }
+    .foot-bottom { flex-direction: column; gap: 12px; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <img src="logo-full.png" alt="Heztio" class="logo">
-        <div class="coming-soon">Coming Soon</div>
-        <h1>Smart building management, <span>simplified.</span></h1>
-        <p class="tagline">
-            One platform for administrators, residents, and communities —
-            making every aspect of building life effortless.
-        </p>
-        <div class="divider"></div>
-        <p class="contact">Get in touch: <a href="mailto:info@heztio.com">info@heztio.com</a></p>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo" aria-label="Heztio">
+      <img src="assets/heztio-lockup-horizontal-navy.png" alt="Heztio" />
+    </a>
+    <div class="nav-links">
+      <a href="#producto">Producto</a>
+      <a href="#para-quien">Para quién</a>
+      <a href="#testimonios">Clientes</a>
+      <a href="#faq">Preguntas</a>
     </div>
-    <footer>&copy; 2026 Heztio. All rights reserved.</footer>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost">Iniciar sesión</a>
+      <a href="#contacto" class="btn btn-primary">Solicitar demo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="hero">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="hero-eyebrow">
+        <span class="dot"></span>
+        Software para conjuntos residenciales
+      </span>
+      <h1>
+        Tu edificio,<br />
+        <span class="accent">gestiónalo simple.</span>
+      </h1>
+      <p class="lede">
+        Heztio reúne paquetería, reservas, comunicación, incidencias y documentos
+        en un solo lugar. Construido en Colombia para administradores, consejos
+        y residentes que quieren menos llamadas y más claridad.
+      </p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn btn-light btn-lg">Solicitar demo</a>
+        <a href="#producto" class="btn btn-outline-light btn-lg">Ver el producto</a>
+      </div>
+      <div class="hero-meta">
+        <span>Implementación en 7 días</span>
+        <span>Sin permanencia</span>
+        <span>Soporte en español</span>
+      </div>
+    </div>
+
+    <div class="hero-product" aria-hidden="true">
+      <div class="product-card">
+        <div class="product-card-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="url">app.heztio.com / dashboard</span>
+        </div>
+        <div class="product-card-body">
+          <div class="pc-header">
+            <div>
+              <div class="pc-title">Conjunto Altavista</div>
+              <div class="pc-sub">Lunes 28 de abril · 124 unidades</div>
+            </div>
+            <span class="pc-badge success">En línea</span>
+          </div>
+          <div class="pc-grid">
+            <div class="pc-stat">
+              <div class="label">Paquetes en portería</div>
+              <div class="value">12</div>
+            </div>
+            <div class="pc-stat gradient">
+              <div class="label">Reservas esta semana</div>
+              <div class="value">18</div>
+            </div>
+          </div>
+          <div class="pc-list">
+            <div class="pc-row">
+              <div class="pc-avatar">CR</div>
+              <div class="who">Carolina Restrepo<small>Apto 502 · Paquete Mercado Libre</small></div>
+              <span class="pc-badge warning">En portería</span>
+              <span class="pc-time">09:14</span>
+            </div>
+            <div class="pc-row">
+              <div class="pc-avatar" style="background: linear-gradient(135deg, #2A3F8F, #6E4A8E);">DM</div>
+              <div class="who">Diego Marín<small>Apto 308 · Reserva salón social</small></div>
+              <span class="pc-badge info">Programada</span>
+              <span class="pc-time">10:02</span>
+            </div>
+            <div class="pc-row">
+              <div class="pc-avatar" style="background: linear-gradient(135deg, #6E4A8E, #C94B5C);">MC</div>
+              <div class="who">Mariana Cortés<small>Apto 1204 · Reporte de incidencia</small></div>
+              <span class="pc-badge success">Resuelta</span>
+              <span class="pc-time">11:30</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="float-notif">
+        <div class="ic">
+          <svg class="ic-svg" style="font-size:18px" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <div class="txt">
+          <strong>Paquete en portería</strong> — Apto 502
+          <small>Mercado Libre · hace 4 min</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     LOGO STRIP
+     ============================================================ -->
+<section class="logos">
+  <div class="container">
+    <p class="logos-label">Confían en Heztio conjuntos en Bogotá, Medellín, Cali y Barranquilla</p>
+    <div class="logos-row">
+      <div class="logo-item"><span class="dot"></span>Altavista</div>
+      <div class="logo-item"><span class="dot"></span>Mirador del Lago</div>
+      <div class="logo-item"><span class="dot"></span>Reserva 93</div>
+      <div class="logo-item"><span class="dot"></span>Parque Central</div>
+      <div class="logo-item"><span class="dot"></span>Torres del Río</div>
+      <div class="logo-item"><span class="dot"></span>Bosques de Salitre</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURES — bento
+     ============================================================ -->
+<section id="producto" class="section features">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Una plataforma, todo el conjunto</span>
+      <h2 class="section-title">Lo que antes tomaba tres llamadas, ahora cabe en una pantalla.</h2>
+      <p>Heztio centraliza la operación diaria de un edificio: paquetería, reservas, comunicación, incidencias y documentos. Pensado para que el administrador trabaje menos y el residente esté mejor informado.</p>
+    </div>
+
+    <div class="bento">
+      <!-- 1 — Paquetería (wide) -->
+      <article class="bento-card b1">
+        <div class="feat-icon" style="background: var(--hz-warning-50); color: var(--hz-warning-700);">
+          <svg class="ic-svg" style="font-size:22px" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <h3>Paquetería sin filas en portería.</h3>
+        <p>Cuando llega un paquete, la portería lo registra y el residente recibe la alerta al instante. Firma digital al recoger y trazabilidad completa de cada entrega.</p>
+        <div class="feat-visual">
+          <div class="visit-list">
+            <div class="visit-row">
+              <div class="av">CR</div>
+              <div class="info">
+                <div class="name">Carolina Restrepo · Apto 502</div>
+                <div class="apt">Mercado Libre · sobre</div>
+              </div>
+              <span class="pc-badge warning">En portería</span>
+              <span class="time">09:14</span>
+            </div>
+            <div class="visit-row">
+              <div class="av" style="background: linear-gradient(135deg, #6E4A8E, #C94B5C);">DM</div>
+              <div class="info">
+                <div class="name">Diego Marín · Apto 308</div>
+                <div class="apt">Rappi · caja mediana</div>
+              </div>
+              <span class="pc-badge info">Notificado</span>
+              <span class="time">10:02</span>
+            </div>
+            <div class="visit-row">
+              <div class="av" style="background: linear-gradient(135deg, #2A3F8F, #B23E6B);">JB</div>
+              <div class="info">
+                <div class="name">Julián Bedoya · Apto 706</div>
+                <div class="apt">Amazon · caja grande</div>
+              </div>
+              <span class="pc-badge success">Recogido</span>
+              <span class="time">12:45</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 — Chat con administración (dark, tall) -->
+      <article class="bento-card b2">
+        <div class="feat-icon">
+          <svg class="ic-svg" style="font-size:22px" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Chat con la administración, sin más grupos.</h3>
+        <p>Conversaciones uno a uno, con historial y archivos adjuntos. Cada residente con su canal directo, sin perderse entre 200 mensajes.</p>
+        <div class="feat-visual" style="display:flex; flex-direction:column; gap:10px;">
+          <div style="align-self:flex-start; max-width:85%; background:rgba(255,255,255,0.08); border-radius:12px 12px 12px 4px; padding:10px 14px; font-size:13px; line-height:1.4; color:rgba(255,255,255,0.9);">
+            Buenos días, ¿saben hasta qué hora hay agua hoy?
+            <div style="font-size:10px; color:rgba(255,255,255,0.5); margin-top:6px;">Apto 502 · 8:42 a. m.</div>
+          </div>
+          <div style="align-self:flex-end; max-width:85%; background:var(--hz-gradient-brand); border-radius:12px 12px 4px 12px; padding:10px 14px; font-size:13px; line-height:1.4; color:white;">
+            Hola Carolina, el corte va de 8 a 11 a. m. Ya estamos por reabrir.
+            <div style="font-size:10px; color:rgba(255,255,255,0.85); margin-top:6px;">Administración · 8:44 a. m.</div>
+          </div>
+          <div style="align-self:flex-start; max-width:85%; background:rgba(255,255,255,0.08); border-radius:12px 12px 12px 4px; padding:10px 14px; font-size:13px; line-height:1.4; color:rgba(255,255,255,0.9);">
+            Perfecto, gracias.
+            <div style="font-size:10px; color:rgba(255,255,255,0.5); margin-top:6px;">Apto 502 · 8:45 a. m.</div>
+          </div>
+          <div style="margin-top:12px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; font-size:11px; color:rgba(255,255,255,0.55);">
+            <span>124 conversaciones activas</span>
+            <span>respuesta promedio · 8 min</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 — Reservas -->
+      <article class="bento-card b3">
+        <div class="feat-icon" style="background: var(--hz-success-50); color: var(--hz-success-700);">
+          <svg class="ic-svg" style="font-size:22px" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Reserva de zonas comunes.</h3>
+        <p>Salón social, BBQ, gimnasio. Calendario único con las reglas del conjunto.</p>
+        <div class="feat-visual">
+          <div class="cal">
+            <div class="day">L</div><div class="day">M</div><div class="day">M</div><div class="day">J</div><div class="day">V</div><div class="day">S</div><div class="day">D</div>
+            <div class="day disabled">29</div><div class="day disabled">30</div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day booked">4</div><div class="day">5</div>
+            <div class="day">6</div><div class="day">7</div><div class="day today">8</div><div class="day">9</div><div class="day">10</div><div class="day booked">11</div><div class="day booked">12</div>
+            <div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day booked">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 — Incidencias -->
+      <article class="bento-card b4">
+        <div class="feat-icon" style="background: var(--hz-danger-50); color: var(--hz-danger-700);">
+          <svg class="ic-svg" style="font-size:22px" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h3>Reporte de incidencias con seguimiento.</h3>
+        <p>Daños, quejas, fugas — con foto y estado en tiempo real.</p>
+        <div class="feat-visual">
+          <div class="msg">
+            <div class="from" style="display:flex; justify-content:space-between;"><span>Apto 1204 · Hoy 10:12</span><span class="pc-badge warning">En revisión</span></div>
+            <div class="body">Fuga de agua en el parqueadero, junto al ascensor 2.</div>
+          </div>
+          <div class="msg brand">
+            <div class="from" style="display:flex; justify-content:space-between;"><span>Apto 308 · Ayer</span><span class="pc-badge success">Resuelta</span></div>
+            <div class="body">Bombillo fundido en pasillo torre B piso 3.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 — Documentos & Anuncios -->
+      <article class="bento-card b5">
+        <div class="feat-icon" style="background: var(--hz-info-50); color: var(--hz-info-700);">
+          <svg class="ic-svg" style="font-size:22px" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+        </div>
+        <h3>Documentos y anuncios oficiales.</h3>
+        <p>Actas, manuales y citaciones siempre a la mano. Anuncios con confirmación de lectura.</p>
+        <div class="feat-visual">
+          <div class="pkg-stack">
+            <div class="pkg-row">
+              <div class="ic" style="background: var(--hz-info-50); color: var(--hz-info-700);">
+                <svg class="ic-svg" style="font-size:14px" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="info"><div class="name">Acta de asamblea — abr. 2026</div><div class="from">PDF · 1,4 MB</div></div>
+              <span class="time" style="font-family:var(--font-mono); font-size:11px; color: var(--fg-3);">3 d</span>
+            </div>
+            <div class="pkg-row">
+              <div class="ic" style="background: var(--hz-warning-50); color: var(--hz-warning-700);">
+                <svg class="ic-svg" style="font-size:14px" viewBox="0 0 24 24"><path d="M3 11v3a4 4 0 0 0 4 4h3"/><path d="M21 13v-3a4 4 0 0 0-4-4h-3"/><polyline points="6 8 3 11 6 14"/></svg>
+              </div>
+              <div class="info"><div class="name">Anuncio: corte de agua mañana</div><div class="from">82 de 124 leídos</div></div>
+              <span class="time" style="font-family:var(--font-mono); font-size:11px; color: var(--fg-3);">2 h</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Próximamente -->
+    <div style="margin-top: 64px; padding: 32px 36px; background: var(--hz-navy-800); color: var(--hz-white); border-radius: var(--radius-2xl); display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 280px;">
+        <span style="display:inline-block; font-family: var(--font-display); font-weight: 700; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--hz-pastel-pink); margin-bottom: 10px;">Próximamente</span>
+        <h3 style="font-family: var(--font-display); font-weight: 800; font-size: 26px; letter-spacing: -0.015em; line-height: 1.15; color: white; margin-bottom: 8px;">Citófono digital y registro de visitantes.</h3>
+        <p style="font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.5; max-width: 560px;">Llamadas al apartamento desde la portería en la app y autorización de visitantes con foto y registro digital. En desarrollo, llega este año.</p>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <div style="display:inline-flex; align-items:center; gap:10px; padding: 12px 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-size: 14px; font-weight: 500;">
+          <svg class="ic-svg" style="font-size:18px; color: var(--hz-pastel-pink);" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Citófono digital
+        </div>
+        <div style="display:inline-flex; align-items:center; gap:10px; padding: 12px 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-size: 14px; font-weight: 500;">
+          <svg class="ic-svg" style="font-size:18px; color: var(--hz-pastel-pink);" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Registro de visitantes
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PARA QUIÉN
+     ============================================================ -->
+<section id="para-quien" class="split">
+  <div class="container">
+    <div class="section-head" style="margin-bottom: 48px;">
+      <span class="eyebrow">Para todo el conjunto</span>
+      <h2 class="section-title">Una plataforma, dos puertas.</h2>
+      <p>Una herramienta de trabajo seria para el administrador. Una app cómoda y honesta para el residente. Sin que ninguno haga el trabajo del otro.</p>
+    </div>
+
+    <div class="split-grid">
+      <!-- Admin -->
+      <article class="split-card dark">
+        <span class="role">Para administradores</span>
+        <h3>Tu día completo, en una pantalla.</h3>
+        <p class="lede">Paquetes registrados, reservas confirmadas, incidencias resueltas, anuncios enviados. Todo desde el escritorio, con historial completo de cada movimiento del conjunto.</p>
+        <ul class="split-list">
+          <li><span class="check">✓</span><span>Panel único para paquetes, reservas e incidencias</span></li>
+          <li><span class="check">✓</span><span>Chat directo con cada residente, con historial</span></li>
+          <li><span class="check">✓</span><span>Repositorio de actas, manuales y documentos del conjunto</span></li>
+          <li><span class="check">✓</span><span>Anuncios masivos con confirmación de lectura</span></li>
+        </ul>
+
+        <div class="admin-mock">
+          <div class="head">
+            <div>
+              <div class="title">Actividad de la semana</div>
+              <div class="sub">Últimos 7 días · conjunto Altavista</div>
+            </div>
+            <span class="pc-badge" style="background:rgba(31,169,113,0.18); color:#5DDFA8;">activo</span>
+          </div>
+          <div class="chart">
+            <div class="bar" style="--h: 55%"></div>
+            <div class="bar" style="--h: 72%"></div>
+            <div class="bar" style="--h: 48%"></div>
+            <div class="bar" style="--h: 84%"></div>
+            <div class="bar" style="--h: 64%"></div>
+            <div class="bar" style="--h: 92%"></div>
+            <div class="bar" style="--h: 38%"></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="v">42</div><div class="l">Paquetes</div></div>
+            <div class="stat"><div class="v">18</div><div class="l">Reservas</div></div>
+            <div class="stat"><div class="v">6</div><div class="l">Incidencias</div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Residente -->
+      <article class="split-card">
+        <span class="role">Para residentes</span>
+        <h3>Tu edificio, en el bolsillo.</h3>
+        <p class="lede">Reserva el salón social sin llamar, mira si tu paquete ya llegó, escríbele a la administración cuando algo no funcione. Y por fin: enterarte de la asamblea sin entrar al grupo.</p>
+        <ul class="split-list">
+          <li><span class="check">✓</span><span>Notificación cuando llega un paquete a portería</span></li>
+          <li><span class="check">✓</span><span>Reserva de zonas comunes en tiempo real</span></li>
+          <li><span class="check">✓</span><span>Chat directo con la administración</span></li>
+          <li><span class="check">✓</span><span>Reporte de incidencias con foto y seguimiento</span></li>
+        </ul>
+
+        <div class="phone-mock">
+          <div class="ph-status"><span>9:41</span><span>•••</span></div>
+          <div class="ph-card">
+            <div class="lbl">Paquete en portería</div>
+            <div class="val" style="font-size:22px;">Mercado Libre</div>
+            <span class="pay-btn">Marcar como recogido</span>
+          </div>
+          <div class="ph-row">
+            <div class="ic">
+              <svg class="ic-svg" style="font-size:14px" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="text"><strong>Reserva confirmada</strong><small>Salón social · sáb. 11 may</small></div>
+          </div>
+          <div class="ph-row">
+            <div class="ic" style="background: var(--hz-warning-50); color: var(--hz-warning-700);">
+              <svg class="ic-svg" style="font-size:14px" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="text"><strong>Anuncio nuevo</strong><small>Asamblea ordinaria · 17 ago</small></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS BAND
+     ============================================================ -->
+<section class="stats-band">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <div class="num">320+</div>
+        <div class="lbl">conjuntos<br/>activos en Colombia</div>
+      </div>
+      <div class="stat-cell">
+        <div class="num">48k</div>
+        <div class="lbl">unidades<br/>residenciales gestionadas</div>
+      </div>
+      <div class="stat-cell">
+        <div class="num">8 min</div>
+        <div class="lbl">tiempo promedio<br/>de respuesta en chat</div>
+      </div>
+      <div class="stat-cell">
+        <div class="num">7 días</div>
+        <div class="lbl">implementación<br/>promedio del producto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRICING (oculto temporalmente — aún no se han definido planes)
+     Para reactivar: descomentar el bloque <section> completo abajo,
+     volver a agregar el enlace "Precios" en .nav-links y revisar copy.
+     ============================================================ -->
+<!--
+<section id="precios" class="section pricing">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Planes y precios</span>
+      <h2 class="section-title">Un precio justo, por unidad.</h2>
+      <p>Sin instalaciones, sin cobros por usuario. Pagas por las unidades del conjunto. Cancela cuando quieras.</p>
+    </div>
+
+    <div class="price-grid">
+      <article class="price-card">
+        <h3>Esencial</h3>
+        <p class="desc">Para conjuntos pequeños que recién arrancan a digitalizarse.</p>
+        <div class="price">
+          <span class="currency">$</span>
+          <span class="amount">2.900</span>
+          <span class="per">/ unidad / mes</span>
+        </div>
+        <p class="price-meta">Hasta 60 unidades · IVA incluido</p>
+        <ul class="price-features">
+          <li><span class="check">✓</span><span>Visitas, paquetería y reservas</span></li>
+          <li><span class="check">✓</span><span>App para residentes (iOS y Android)</span></li>
+          <li><span class="check">✓</span><span>Anuncios y encuestas</span></li>
+          <li><span class="check">✓</span><span>Soporte por correo en horario hábil</span></li>
+        </ul>
+        <a href="#contacto" class="btn btn-primary">Empezar</a>
+      </article>
+
+      <article class="price-card featured">
+        <span class="tier-badge">Recomendado</span>
+        <h3>Profesional</h3>
+        <p class="desc">El plan que usan la mayoría de los conjuntos en Heztio.</p>
+        <div class="price">
+          <span class="currency">$</span>
+          <span class="amount">4.500</span>
+          <span class="per">/ unidad / mes</span>
+        </div>
+        <p class="price-meta">Sin tope de unidades · IVA incluido</p>
+        <ul class="price-features">
+          <li><span class="check">✓</span><span>Todo lo del plan Esencial</span></li>
+          <li><span class="check">✓</span><span>Recaudo de administración (PSE, tarjeta, débito automático)</span></li>
+          <li><span class="check">✓</span><span>Cartera y conciliación bancaria automática</span></li>
+          <li><span class="check">✓</span><span>Paz y salvos y certificados</span></li>
+          <li><span class="check">✓</span><span>Soporte prioritario por chat y teléfono</span></li>
+        </ul>
+        <a href="#contacto" class="btn btn-primary">Solicitar demo</a>
+      </article>
+
+      <article class="price-card">
+        <h3>Empresarial</h3>
+        <p class="desc">Para administradoras con varios conjuntos y necesidades de integración.</p>
+        <div class="price">
+          <span class="amount" style="font-size: 40px;">A medida</span>
+        </div>
+        <p class="price-meta">Multi-conjunto · contrato anual</p>
+        <ul class="price-features">
+          <li><span class="check">✓</span><span>Todo lo del plan Profesional</span></li>
+          <li><span class="check">✓</span><span>Multi-conjunto con consolidado contable</span></li>
+          <li><span class="check">✓</span><span>Integración con Siigo, Helisa y SAP</span></li>
+          <li><span class="check">✓</span><span>Marca blanca (logo y colores propios)</span></li>
+          <li><span class="check">✓</span><span>Account manager dedicado</span></li>
+        </ul>
+        <a href="#contacto" class="btn btn-primary">Hablar con ventas</a>
+      </article>
+    </div>
+  </div>
+</section>
+-->
+
+<!-- ============================================================
+     TESTIMONIOS
+     ============================================================ -->
+<section id="testimonios" class="section testimonial">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Lo que dicen los administradores</span>
+      <h2 class="section-title">Menos llamadas. Menos grupos. Asambleas que sí llegan a quórum.</h2>
+    </div>
+
+    <div class="testi-grid">
+      <article class="testi">
+        <blockquote>«Pasamos de un cuaderno en portería a tener cada paquete y cada reserva con historial. La diferencia para el residente es noche y día.»</blockquote>
+        <div class="author">
+          <div class="av">AS</div>
+          <div>
+            <div class="n">Andrea Salazar</div>
+            <div class="role">Administradora — Conjunto Altavista, Medellín</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="testi">
+        <blockquote>«Lo que más valoran los residentes es la paz. Se acabaron los grupos de WhatsApp con quejas a las 11 de la noche.»</blockquote>
+        <div class="author">
+          <div class="av" style="background: linear-gradient(135deg, #6E4A8E, #C94B5C);">JR</div>
+          <div>
+            <div class="n">Jorge Restrepo</div>
+            <div class="role">Presidente del consejo — Reserva 93, Bogotá</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="testi">
+        <blockquote>«El chat directo con la administración cambió todo. Antes me llamaban a las 10 de la noche; ahora me escriben y respondo cuando puedo, con todo registrado.»</blockquote>
+        <div class="author">
+          <div class="av" style="background: linear-gradient(135deg, #2A3F8F, #6E4A8E);">LM</div>
+          <div>
+            <div class="n">Liliana Muñoz</div>
+            <div class="role">Administradora independiente — Cali</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section id="faq" class="section faq">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="section-head left" style="margin: 0;">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2 class="section-title">Lo que suelen preguntar antes de la demo.</h2>
+        <p style="margin-top:20px; font-size:15px;">¿No encuentras tu pregunta? Escríbenos a <a href="mailto:info@heztio.com" style="color: var(--hz-grad-blue); font-weight:600;">info@heztio.com</a> y te respondemos el mismo día.</p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>¿Cuánto se demora la implementación?<span class="plus">+</span></summary>
+          <div class="answer">En promedio, 7 días hábiles. Migramos la base de datos de residentes desde Excel, configuramos las zonas comunes y entrenamos al equipo de portería y administración. El día 8 ya están recibiendo paquetes y reservas desde la app.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Heztio sirve para cobrar la administración?<span class="plus">+</span></summary>
+          <div class="answer">Aún no. Hoy Heztio cubre paquetería, reservas, chat con administración, incidencias, documentos y anuncios. El recaudo de la administración está en nuestro roadmap, pero todavía no está disponible.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué viene en los próximos meses?<span class="plus">+</span></summary>
+          <div class="answer">Estamos terminando el citófono digital (llamadas desde la portería directo a la app) y el registro de visitantes con autorización del residente. Llegan este año.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué pasa con los datos de los residentes?<span class="plus">+</span></summary>
+          <div class="answer">Heztio cumple con la Ley 1581 de 2012 de protección de datos personales. Los datos se almacenan en servidores en Colombia y solo el administrador del conjunto y el propio residente pueden acceder a ellos.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Hay permanencia o cláusulas de salida?<span class="plus">+</span></summary>
+          <div class="answer">No. El servicio es mes a mes. Si decides cancelar, te entregamos un export completo de tu información en CSV y te ayudamos con la migración.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Hablan con el consejo de administración?<span class="plus">+</span></summary>
+          <div class="answer">Con gusto. Hacemos demos en vivo para el consejo y la asamblea, presenciales en Bogotá y Medellín o por videollamada en cualquier ciudad.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA FINAL
+     ============================================================ -->
+<section id="contacto" class="cta-final">
+  <div class="container cta-final-inner">
+    <h2>Empieza a <span class="accent">gestionarlo simple.</span></h2>
+    <p>Una demo de 30 minutos con un especialista del equipo. Te mostramos el producto con datos de un conjunto real y resolvemos todas las dudas del consejo.</p>
+    <div class="actions">
+      <a href="#" class="btn btn-light btn-lg">Solicitar demo gratis</a>
+      <a href="mailto:info@heztio.com" class="btn btn-outline-light btn-lg">info@heztio.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div>
+        <img src="assets/heztio-lockup-horizontal-white.png" alt="Heztio" />
+        <p class="blurb">Software de gestión para conjuntos residenciales en Colombia. Hecho en Medellín, con cariño por los administradores que sostienen edificios completos en hojas de Excel.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Producto</h4>
+        <a href="#producto">Paquetería</a>
+        <a href="#producto">Reservas</a>
+        <a href="#producto">Chat</a>
+        <a href="#producto">Incidencias</a>
+        <a href="#producto">Documentos</a>
+      </div>
+      <div class="foot-col">
+        <h4>Empresa</h4>
+        <a href="#">Nosotros</a>
+        <a href="#">Blog</a>
+        <a href="#">Clientes</a>
+        <a href="#">Trabaja con nosotros</a>
+      </div>
+      <div class="foot-col">
+        <h4>Soporte</h4>
+        <a href="#">Centro de ayuda</a>
+        <a href="mailto:info@heztio.com">info@heztio.com</a>
+        <a href="tel:+573145951905">+57 314 595 1905</a>
+        <a href="#">Estado del servicio</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Heztio S.A.S. · NIT 901.XXX.XXX-X · Medellín, Colombia</span>
+      <div class="legal">
+        <a href="#">Términos</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Tratamiento de datos</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
