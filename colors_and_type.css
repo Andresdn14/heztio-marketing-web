@@ -15,17 +15,30 @@
      Mono           JetBrains Mono   (Google Fonts)
    ================================================================ */
 
-/* Causten — primary brand family. Subset (400–900 normal) loaded
-   from /fonts at the project root. */
-@font-face { font-family: 'Causten'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/Causten-Regular.otf')  format('opentype'); }
-@font-face { font-family: 'Causten'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/Causten-Medium.otf')   format('opentype'); }
-@font-face { font-family: 'Causten'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/Causten-SemiBold.otf') format('opentype'); }
-@font-face { font-family: 'Causten'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/Causten-Bold.otf')     format('opentype'); }
-@font-face { font-family: 'Causten'; font-style: normal; font-weight: 800; font-display: swap; src: url('fonts/Causten-ExtraBold.otf')format('opentype'); }
-@font-face { font-family: 'Causten'; font-style: normal; font-weight: 900; font-display: swap; src: url('fonts/Causten-Black.otf')    format('opentype'); }
-
-/* Secondary (Montserrat) + Mono (JetBrains Mono) via Google Fonts. */
+/* Secondary (Montserrat) + Mono (JetBrains Mono) via Google Fonts.
+   A CSS @import must precede @font-face and all other rules, so it lives here. */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Causten — primary brand family, full weight range + obliques.
+   Files live in /fonts at the project root. */
+@font-face { font-family: 'Causten'; font-style: normal;  font-weight: 100; font-display: swap; src: url('fonts/Causten-Thin.otf')             format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: italic;  font-weight: 100; font-display: swap; src: url('fonts/Causten-ThinOblique.otf')      format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: normal;  font-weight: 200; font-display: swap; src: url('fonts/Causten-ExtraLight.otf')       format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: italic;  font-weight: 200; font-display: swap; src: url('fonts/Causten-ExtraLightOblique.otf')format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: normal;  font-weight: 300; font-display: swap; src: url('fonts/Causten-Light.otf')            format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: italic;  font-weight: 300; font-display: swap; src: url('fonts/Causten-LightOblique.otf')     format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: normal;  font-weight: 400; font-display: swap; src: url('fonts/Causten-Regular.otf')          format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: italic;  font-weight: 400; font-display: swap; src: url('fonts/Causten-RegularOblique.otf')   format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: normal;  font-weight: 500; font-display: swap; src: url('fonts/Causten-Medium.otf')           format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: italic;  font-weight: 500; font-display: swap; src: url('fonts/Causten-MediumOblique.otf')    format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: normal;  font-weight: 600; font-display: swap; src: url('fonts/Causten-SemiBold.otf')         format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: italic;  font-weight: 600; font-display: swap; src: url('fonts/Causten-SemiBoldOblique.otf')  format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: normal;  font-weight: 700; font-display: swap; src: url('fonts/Causten-Bold.otf')             format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: italic;  font-weight: 700; font-display: swap; src: url('fonts/Causten-BoldOblique.otf')      format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: normal;  font-weight: 800; font-display: swap; src: url('fonts/Causten-ExtraBold.otf')        format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: italic;  font-weight: 800; font-display: swap; src: url('fonts/Causten-ExtraBoldOblique.otf') format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: normal;  font-weight: 900; font-display: swap; src: url('fonts/Causten-Black.otf')            format('opentype'); }
+@font-face { font-family: 'Causten'; font-style: italic;  font-weight: 900; font-display: swap; src: url('fonts/Causten-BlackOblique.otf')     format('opentype'); }
 
 :root {
   /* ============== BRAND COLORS ============== */
@@ -187,14 +200,6 @@
   --dur-fast:    120ms;
   --dur-base:    180ms;
   --dur-slow:    320ms;
-
-  /* ============== LEGACY ALIASES ==============
-     The marketing site still references a few v1 token names.
-     Map them to the closest v2 equivalent so the cascade keeps
-     working without touching every callsite. */
-  --hz-grad-blue:    var(--hz-navy-500);    /* blue link / accent on light bg */
-  --hz-grad-magenta: var(--hz-pink-700);    /* deeper pink, featured highlights */
-  --hz-pastel-pink:  var(--hz-pink-300);    /* soft pink, used on dark surfaces */
 }
 
 /* ================================================================

@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Heztio — Gestiónalo simple</title>
-<meta name="description" content="Heztio es el software para administrar conjuntos residenciales en Colombia. Paquetería, reservas, comunicación, incidencias y documentos en un solo lugar." />
+<meta name="description" content="Heztio es el software para administrar conjuntos residenciales. Paquetería, reservas, comunicación, incidencias y documentos en un solo lugar." />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
@@ -15,7 +15,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: var(--font-sans);
+    font-family: var(--font-primary);
     color: var(--fg-1);
     background: var(--bg-1);
     -webkit-font-smoothing: antialiased;
@@ -76,7 +76,7 @@
     align-items: center;
     gap: 8px;
     padding: 12px 20px;
-    font-family: var(--font-sans);
+    font-family: var(--font-primary);
     font-weight: 600;
     font-size: 14px;
     border-radius: var(--radius-md);
@@ -139,8 +139,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 40% at 85% 20%, rgba(201,75,92,0.25), transparent 70%),
-      radial-gradient(ellipse 50% 50% at 15% 80%, rgba(42,63,143,0.35), transparent 70%);
+      radial-gradient(ellipse 60% 40% at 85% 20%, rgba(240,134,168,0.28), transparent 70%),
+      radial-gradient(ellipse 50% 50% at 15% 80%, rgba(1,46,84,0.45), transparent 70%);
     pointer-events: none;
   }
   .hero-inner {
@@ -159,8 +159,8 @@
     padding: 6px 14px 6px 8px;
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 999px;
-    font-family: var(--font-display);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-secondary);
     font-weight: 700;
     font-size: 12px;
     letter-spacing: 0.14em;
@@ -171,12 +171,12 @@
   .hero-eyebrow .dot {
     width: 18px; height: 18px;
     background: var(--hz-gradient-brand);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     display: inline-block;
   }
   .hero h1 {
-    font-family: var(--font-display);
-    font-weight: 900;
+    font-family: var(--font-primary);
+    font-weight: 800;
     font-size: clamp(48px, 6vw, 88px);
     letter-spacing: -0.03em;
     line-height: 0.98;
@@ -184,7 +184,7 @@
     text-transform: uppercase;
   }
   .hero h1 .accent {
-    background: linear-gradient(105deg, #E89BB8 0%, #B98AC1 50%, #8A7FBE 100%);
+    background: linear-gradient(105deg, var(--hz-pink-300) 0%, var(--hz-pink) 55%, var(--hz-pink-700) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -209,11 +209,14 @@
     font-size: 13px;
     color: rgba(255,255,255,0.6);
   }
-  .hero-meta span::before {
-    content: "✓";
-    margin-right: 8px;
-    color: var(--hz-pastel-pink);
-    font-weight: 700;
+  .hero-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-meta span svg {
+    color: var(--hz-pink);
+    flex-shrink: 0;
   }
 
   /* Hero product card */
@@ -224,7 +227,7 @@
     background: var(--hz-white);
     color: var(--fg-1);
     border-radius: var(--radius-xl);
-    box-shadow: 0 30px 80px rgba(8, 10, 30, 0.5), 0 12px 24px rgba(8, 10, 30, 0.3);
+    box-shadow: 0 30px 80px rgba(1, 24, 48, 0.5), 0 12px 24px rgba(1, 24, 48, 0.3);
     overflow: hidden;
     transform: rotate(-1deg);
   }
@@ -255,7 +258,7 @@
     margin-bottom: 18px;
   }
   .pc-title {
-    font-family: var(--font-sans);
+    font-family: var(--font-primary);
     font-weight: 700;
     font-size: 16px;
   }
@@ -276,7 +279,7 @@
     padding: 12px 14px;
   }
   .pc-stat .label {
-    font-family: var(--font-display);
+    font-family: var(--font-secondary);
     font-weight: 700;
     font-size: 10px;
     letter-spacing: 0.14em;
@@ -285,7 +288,7 @@
     margin-bottom: 6px;
   }
   .pc-stat .value {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-weight: 800;
     font-size: 22px;
     letter-spacing: -0.02em;
@@ -311,7 +314,7 @@
   .pc-avatar {
     width: 28px; height: 28px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #6E4A8E, #B23E6B);
+    background: var(--hz-gradient-brand);
     color: white;
     display: flex; align-items: center; justify-content: center;
     font-size: 11px; font-weight: 700;
@@ -331,7 +334,7 @@
     font-size: 10px;
     font-weight: 600;
     padding: 3px 8px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
@@ -347,7 +350,7 @@
     left: -32px;
     background: var(--hz-white);
     border-radius: var(--radius-lg);
-    box-shadow: 0 20px 50px rgba(8,10,30,0.4);
+    box-shadow: 0 20px 50px rgba(1, 24, 48, 0.4);
     padding: 14px 18px 14px 14px;
     display: flex; align-items: center; gap: 12px;
     transform: rotate(-3deg);
@@ -355,7 +358,7 @@
   }
   .float-notif .ic {
     width: 36px; height: 36px;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     background: var(--hz-success-50);
     color: var(--hz-success-700);
     display: flex; align-items: center; justify-content: center;
@@ -373,7 +376,7 @@
   }
   .logos-label {
     text-align: center;
-    font-family: var(--font-display);
+    font-family: var(--font-secondary);
     font-weight: 700;
     font-size: 12px;
     letter-spacing: 0.18em;
@@ -389,7 +392,7 @@
     flex-wrap: wrap;
   }
   .logo-item {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-weight: 800;
     font-size: 22px;
     letter-spacing: -0.02em;
@@ -416,16 +419,16 @@
   .section-head.left { text-align: left; margin-left: 0; }
   .eyebrow {
     display: inline-block;
-    font-family: var(--font-display);
+    font-family: var(--font-secondary);
     font-weight: 700;
     font-size: 12px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--hz-grad-magenta);
+    color: var(--hz-pink-700);
     margin-bottom: 16px;
   }
   h2.section-title {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-weight: 800;
     font-size: clamp(32px, 4vw, 52px);
     letter-spacing: -0.02em;
@@ -476,7 +479,7 @@
     margin-bottom: 20px;
   }
   .bento-card h3 {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-weight: 800;
     font-size: 24px;
     letter-spacing: -0.015em;
@@ -511,7 +514,7 @@
   .b1 .visit-row:last-child { border-bottom: none; }
   .b1 .av {
     width: 32px; height: 32px; border-radius: 50%;
-    background: linear-gradient(135deg, #2A3F8F, #6E4A8E);
+    background: var(--hz-gradient-brand);
     color: white; display: flex; align-items: center; justify-content: center;
     font-size: 12px; font-weight: 700;
   }
@@ -526,7 +529,7 @@
   .b2 p { color: rgba(255,255,255,0.7); }
   .b2 .feat-icon { background: rgba(255,255,255,0.1); color: var(--hz-white); }
   .b2 .pago-amount {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-weight: 800;
     font-size: 56px;
     letter-spacing: -0.03em;
@@ -538,7 +541,7 @@
     margin-top: 20px;
   }
   .b2 .pago-label {
-    font-family: var(--font-display);
+    font-family: var(--font-secondary);
     font-weight: 700;
     font-size: 11px;
     letter-spacing: 0.14em;
@@ -550,14 +553,14 @@
     margin-top: 16px;
     height: 6px;
     background: rgba(255,255,255,0.1);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     overflow: hidden;
   }
   .b2 .pago-bar > div {
     height: 100%;
     width: 87%;
     background: var(--hz-gradient-brand);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
   }
   .b2 .pago-detail {
     margin-top: 12px;
@@ -591,7 +594,7 @@
   .b3 .cal .day {
     aspect-ratio: 1;
     background: var(--hz-slate-50);
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     display: flex; align-items: center; justify-content: center;
     font-size: 11px;
     font-weight: 600;
@@ -636,7 +639,7 @@
     width: 28px; height: 28px;
     background: var(--hz-warning-50);
     color: var(--hz-warning-700);
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     display: flex; align-items: center; justify-content: center;
   }
   .b5 .pkg-row .info { flex: 1; }
@@ -667,13 +670,13 @@
   }
   .split-card .role {
     display: inline-block;
-    font-family: var(--font-display);
+    font-family: var(--font-secondary);
     font-weight: 700;
     font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     padding: 6px 12px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--hz-info-50);
     color: var(--hz-info-700);
     margin-bottom: 20px;
@@ -683,7 +686,7 @@
     color: rgba(255,255,255,0.9);
   }
   .split-card h3 {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-weight: 800;
     font-size: 36px;
     letter-spacing: -0.02em;
@@ -724,8 +727,8 @@
     margin-top: 2px;
   }
   .split-card.dark .split-list li .check {
-    background: rgba(31,169,113,0.18);
-    color: #5DDFA8;
+    background: color-mix(in srgb, var(--hz-success-500) 18%, transparent);
+    color: color-mix(in srgb, var(--hz-success-500) 55%, var(--hz-white));
   }
   .split-card.dark .split-list li { color: rgba(255,255,255,0.85); }
 
@@ -733,7 +736,7 @@
   .phone-mock {
     margin-top: 32px;
     background: var(--hz-white);
-    border-radius: 18px;
+    border-radius: var(--radius-xl);
     padding: 18px;
     box-shadow: var(--shadow-md);
   }
@@ -751,12 +754,12 @@
     margin-bottom: 12px;
   }
   .phone-mock .ph-card .lbl {
-    font-family: var(--font-display);
+    font-family: var(--font-secondary);
     font-weight: 700; font-size: 10px; letter-spacing: 0.14em;
     text-transform: uppercase; opacity: 0.8;
   }
   .phone-mock .ph-card .val {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-weight: 800; font-size: 28px; letter-spacing: -0.02em;
     margin-top: 6px;
   }
@@ -779,7 +782,7 @@
     width: 28px; height: 28px;
     background: var(--hz-info-50);
     color: var(--hz-info-700);
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     display: flex; align-items: center; justify-content: center;
   }
   .phone-mock .ph-row .text { flex: 1; }
@@ -825,7 +828,7 @@
     padding-top: 14px;
   }
   .admin-mock .stat .v {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-weight: 800; font-size: 18px;
     letter-spacing: -0.02em;
   }
@@ -857,11 +860,11 @@
     padding-left: 20px;
   }
   .stats-grid .stat-cell:first-child {
-    border-color: var(--hz-grad-magenta);
+    border-color: var(--hz-pink);
   }
   .stats-grid .stat-cell .num {
-    font-family: var(--font-display);
-    font-weight: 900;
+    font-family: var(--font-primary);
+    font-weight: 800;
     font-size: clamp(40px, 5vw, 64px);
     letter-spacing: -0.03em;
     line-height: 0.95;
@@ -906,16 +909,16 @@
     top: -12px; right: 24px;
     background: var(--hz-gradient-brand);
     color: white;
-    font-family: var(--font-display);
+    font-family: var(--font-secondary);
     font-weight: 700;
     font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     padding: 6px 12px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
   }
   .price-card h3 {
-    font-family: var(--font-display);
+    font-family: var(--font-secondary);
     font-weight: 800;
     font-size: 18px;
     text-transform: uppercase;
@@ -936,14 +939,14 @@
     margin-bottom: 6px;
   }
   .price-card .price .amount {
-    font-family: var(--font-display);
-    font-weight: 900;
+    font-family: var(--font-primary);
+    font-weight: 800;
     font-size: 56px;
     letter-spacing: -0.03em;
     line-height: 1;
   }
   .price-card .price .currency {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-weight: 700;
     font-size: 18px;
     color: var(--fg-3);
@@ -976,11 +979,11 @@
   .price-card.featured .price-features li { border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85); }
   .price-features .check {
     flex-shrink: 0;
-    color: var(--hz-grad-magenta);
+    color: var(--hz-pink-700);
     font-weight: 700;
     margin-top: 1px;
   }
-  .price-card.featured .price-features .check { color: var(--hz-pastel-pink); }
+  .price-card.featured .price-features .check { color: var(--hz-pink); }
   .price-card .btn { width: 100%; justify-content: center; }
   .price-card.featured .btn-primary { background: var(--hz-white); color: var(--hz-navy-800); }
   .price-card.featured .btn-primary:hover { background: var(--hz-slate-100); }
@@ -1004,7 +1007,7 @@
     display: flex; flex-direction: column;
   }
   .testi blockquote {
-    font-family: var(--font-display);
+    font-family: var(--font-primary);
     font-weight: 700;
     font-size: 22px;
     line-height: 1.25;
@@ -1024,7 +1027,7 @@
   .testi .author .av {
     width: 44px; height: 44px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #2A3F8F, #B23E6B);
+    background: var(--hz-gradient-brand);
     color: white;
     display: flex; align-items: center; justify-content: center;
     font-weight: 700;
@@ -1056,7 +1059,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    font-family: var(--font-sans);
+    font-family: var(--font-primary);
     font-weight: 600;
     font-size: 18px;
     color: var(--fg-1);
@@ -1110,8 +1113,8 @@
     margin: 0 auto;
   }
   .cta-final h2 {
-    font-family: var(--font-display);
-    font-weight: 900;
+    font-family: var(--font-primary);
+    font-weight: 800;
     font-size: clamp(48px, 7vw, 96px);
     letter-spacing: -0.03em;
     line-height: 0.95;
@@ -1119,7 +1122,7 @@
     margin-bottom: 24px;
   }
   .cta-final h2 .accent {
-    background: linear-gradient(105deg, #E89BB8 0%, #B98AC1 50%, #8A7FBE 100%);
+    background: linear-gradient(105deg, var(--hz-pink-300) 0%, var(--hz-pink) 55%, var(--hz-pink-700) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -1157,7 +1160,7 @@
     line-height: 1.5;
   }
   .foot-col h4 {
-    font-family: var(--font-display);
+    font-family: var(--font-secondary);
     font-weight: 700;
     font-size: 11px;
     letter-spacing: 0.18em;
@@ -1256,7 +1259,7 @@
       </h1>
       <p class="lede">
         Heztio reúne paquetería, reservas, comunicación, incidencias y documentos
-        en un solo lugar. Construido en Colombia para administradores, consejos
+        en un solo lugar. Construido para administradores, consejos
         y residentes que quieren menos llamadas y más claridad.
       </p>
       <div class="hero-actions">
@@ -1264,9 +1267,9 @@
         <a href="#producto" class="btn btn-outline-light btn-lg">Ver el producto</a>
       </div>
       <div class="hero-meta">
-        <span>Implementación en 7 días</span>
-        <span>Sin permanencia</span>
-        <span>Soporte en español</span>
+        <span><svg class="ic-svg" style="font-size:16px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Implementación en 7 días</span>
+        <span><svg class="ic-svg" style="font-size:16px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Sin permanencia</span>
+        <span><svg class="ic-svg" style="font-size:16px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Soporte en español</span>
       </div>
     </div>
 
@@ -1302,13 +1305,13 @@
               <span class="pc-time">09:14</span>
             </div>
             <div class="pc-row">
-              <div class="pc-avatar" style="background: linear-gradient(135deg, #2A3F8F, #6E4A8E);">DM</div>
+              <div class="pc-avatar">DM</div>
               <div class="who">Diego Marín<small>Apto 308 · Reserva salón social</small></div>
               <span class="pc-badge info">Programada</span>
               <span class="pc-time">10:02</span>
             </div>
             <div class="pc-row">
-              <div class="pc-avatar" style="background: linear-gradient(135deg, #6E4A8E, #C94B5C);">MC</div>
+              <div class="pc-avatar">MC</div>
               <div class="who">Mariana Cortés<small>Apto 1204 · Reporte de incidencia</small></div>
               <span class="pc-badge success">Resuelta</span>
               <span class="pc-time">11:30</span>
@@ -1377,7 +1380,7 @@
               <span class="time">09:14</span>
             </div>
             <div class="visit-row">
-              <div class="av" style="background: linear-gradient(135deg, #6E4A8E, #C94B5C);">DM</div>
+              <div class="av">DM</div>
               <div class="info">
                 <div class="name">Diego Marín · Apto 308</div>
                 <div class="apt">Rappi · caja mediana</div>
@@ -1386,7 +1389,7 @@
               <span class="time">10:02</span>
             </div>
             <div class="visit-row">
-              <div class="av" style="background: linear-gradient(135deg, #2A3F8F, #B23E6B);">JB</div>
+              <div class="av">JB</div>
               <div class="info">
                 <div class="name">Julián Bedoya · Apto 706</div>
                 <div class="apt">Amazon · caja grande</div>
@@ -1492,17 +1495,17 @@
     <!-- Próximamente -->
     <div style="margin-top: 64px; padding: 32px 36px; background: var(--hz-navy-800); color: var(--hz-white); border-radius: var(--radius-2xl); display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
       <div style="flex: 1; min-width: 280px;">
-        <span style="display:inline-block; font-family: var(--font-display); font-weight: 700; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--hz-pastel-pink); margin-bottom: 10px;">Próximamente</span>
-        <h3 style="font-family: var(--font-display); font-weight: 800; font-size: 26px; letter-spacing: -0.015em; line-height: 1.15; color: white; margin-bottom: 8px;">Citófono digital y registro de visitantes.</h3>
+        <span style="display:inline-block; font-family: var(--font-secondary); font-weight: 700; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--hz-pink); margin-bottom: 10px;">Próximamente</span>
+        <h3 style="font-family: var(--font-primary); font-weight: 800; font-size: 26px; letter-spacing: -0.015em; line-height: 1.15; color: white; margin-bottom: 8px;">Citófono digital y registro de visitantes.</h3>
         <p style="font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.5; max-width: 560px;">Llamadas al apartamento desde la portería en la app y autorización de visitantes con foto y registro digital. En desarrollo, llega este año.</p>
       </div>
       <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <div style="display:inline-flex; align-items:center; gap:10px; padding: 12px 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-size: 14px; font-weight: 500;">
-          <svg class="ic-svg" style="font-size:18px; color: var(--hz-pastel-pink);" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <div style="display:inline-flex; align-items:center; gap:10px; padding: 12px 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-pill); font-size: 14px; font-weight: 500;">
+          <svg class="ic-svg" style="font-size:18px; color: var(--hz-pink);" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           Citófono digital
         </div>
-        <div style="display:inline-flex; align-items:center; gap:10px; padding: 12px 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-size: 14px; font-weight: 500;">
-          <svg class="ic-svg" style="font-size:18px; color: var(--hz-pastel-pink);" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div style="display:inline-flex; align-items:center; gap:10px; padding: 12px 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-pill); font-size: 14px; font-weight: 500;">
+          <svg class="ic-svg" style="font-size:18px; color: var(--hz-pink);" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           Registro de visitantes
         </div>
       </div>
@@ -1528,10 +1531,10 @@
         <h3>Tu día completo, en una pantalla.</h3>
         <p class="lede">Paquetes registrados, reservas confirmadas, incidencias resueltas, anuncios enviados. Todo desde el escritorio, con historial completo de cada movimiento del conjunto.</p>
         <ul class="split-list">
-          <li><span class="check">✓</span><span>Panel único para paquetes, reservas e incidencias</span></li>
-          <li><span class="check">✓</span><span>Chat directo con cada residente, con historial</span></li>
-          <li><span class="check">✓</span><span>Repositorio de actas, manuales y documentos del conjunto</span></li>
-          <li><span class="check">✓</span><span>Anuncios masivos con confirmación de lectura</span></li>
+          <li><span class="check"><svg class="ic-svg" style="font-size:12px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Panel único para paquetes, reservas e incidencias</span></li>
+          <li><span class="check"><svg class="ic-svg" style="font-size:12px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Chat directo con cada residente, con historial</span></li>
+          <li><span class="check"><svg class="ic-svg" style="font-size:12px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Repositorio de actas, manuales y documentos del conjunto</span></li>
+          <li><span class="check"><svg class="ic-svg" style="font-size:12px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Anuncios masivos con confirmación de lectura</span></li>
         </ul>
 
         <div class="admin-mock">
@@ -1540,7 +1543,7 @@
               <div class="title">Actividad de la semana</div>
               <div class="sub">Últimos 7 días · conjunto Altavista</div>
             </div>
-            <span class="pc-badge" style="background:rgba(31,169,113,0.18); color:#5DDFA8;">activo</span>
+            <span class="pc-badge" style="background:color-mix(in srgb, var(--hz-success-500) 18%, transparent); color:color-mix(in srgb, var(--hz-success-500) 55%, var(--hz-white));">activo</span>
           </div>
           <div class="chart">
             <div class="bar" style="--h: 55%"></div>
@@ -1565,14 +1568,14 @@
         <h3>Tu edificio, en el bolsillo.</h3>
         <p class="lede">Reserva el salón social sin llamar, mira si tu paquete ya llegó, escríbele a la administración cuando algo no funcione. Y por fin: enterarte de la asamblea sin entrar al grupo.</p>
         <ul class="split-list">
-          <li><span class="check">✓</span><span>Notificación cuando llega un paquete a portería</span></li>
-          <li><span class="check">✓</span><span>Reserva de zonas comunes en tiempo real</span></li>
-          <li><span class="check">✓</span><span>Chat directo con la administración</span></li>
-          <li><span class="check">✓</span><span>Reporte de incidencias con foto y seguimiento</span></li>
+          <li><span class="check"><svg class="ic-svg" style="font-size:12px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Notificación cuando llega un paquete a portería</span></li>
+          <li><span class="check"><svg class="ic-svg" style="font-size:12px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Reserva de zonas comunes en tiempo real</span></li>
+          <li><span class="check"><svg class="ic-svg" style="font-size:12px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Chat directo con la administración</span></li>
+          <li><span class="check"><svg class="ic-svg" style="font-size:12px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Reporte de incidencias con foto y seguimiento</span></li>
         </ul>
 
         <div class="phone-mock">
-          <div class="ph-status"><span>9:41</span><span>•••</span></div>
+          <div class="ph-status"><span>9:41</span><svg class="ic-svg" style="font-size:16px" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></div>
           <div class="ph-card">
             <div class="lbl">Paquete en portería</div>
             <div class="val" style="font-size:22px;">Mercado Libre</div>
@@ -1604,7 +1607,7 @@
     <div class="stats-grid">
       <div class="stat-cell">
         <div class="num">320+</div>
-        <div class="lbl">conjuntos<br/>activos en Colombia</div>
+        <div class="lbl">conjuntos<br/>activos</div>
       </div>
       <div class="stat-cell">
         <div class="num">48k</div>
@@ -1647,7 +1650,7 @@
       <article class="testi">
         <blockquote>«Lo que más valoran los residentes es la paz. Se acabaron los grupos de WhatsApp con quejas a las 11 de la noche.»</blockquote>
         <div class="author">
-          <div class="av" style="background: linear-gradient(135deg, #6E4A8E, #C94B5C);">JR</div>
+          <div class="av">JR</div>
           <div>
             <div class="n">Jorge Restrepo</div>
             <div class="role">Presidente del consejo — Reserva 93, Bogotá</div>
@@ -1658,7 +1661,7 @@
       <article class="testi">
         <blockquote>«El chat directo con la administración cambió todo. Antes me llamaban a las 10 de la noche; ahora me escriben y respondo cuando puedo, con todo registrado.»</blockquote>
         <div class="author">
-          <div class="av" style="background: linear-gradient(135deg, #2A3F8F, #6E4A8E);">LM</div>
+          <div class="av">LM</div>
           <div>
             <div class="n">Liliana Muñoz</div>
             <div class="role">Administradora independiente — Cali</div>
@@ -1678,7 +1681,7 @@
       <div class="section-head left" style="margin: 0;">
         <span class="eyebrow">Preguntas frecuentes</span>
         <h2 class="section-title">Lo que suelen preguntar antes de la demo.</h2>
-        <p style="margin-top:20px; font-size:15px;">¿No encuentras tu pregunta? Escríbenos a <a href="mailto:info@heztio.com" style="color: var(--hz-grad-blue); font-weight:600;">info@heztio.com</a> y te respondemos el mismo día.</p>
+        <p style="margin-top:20px; font-size:15px;">¿No encuentras tu pregunta? Escríbenos a <a href="mailto:info@heztio.com" style="color: var(--hz-pink-700); font-weight:600;">info@heztio.com</a> y te respondemos el mismo día.</p>
       </div>
 
       <div class="faq-list">
@@ -1696,15 +1699,15 @@
         </details>
         <details class="faq-item">
           <summary>¿Qué pasa con los datos de los residentes?<span class="plus">+</span></summary>
-          <div class="answer">Heztio cumple con la Ley 1581 de 2012 de protección de datos personales. Los datos se almacenan en servidores en Colombia y solo el administrador del conjunto y el propio residente pueden acceder a ellos.</div>
+          <div class="answer">Heztio cumple con la Ley 1581 de 2012 de protección de datos personales. Solo el administrador del conjunto y el propio residente pueden acceder a los datos.</div>
         </details>
         <details class="faq-item">
           <summary>¿Hay permanencia o cláusulas de salida?<span class="plus">+</span></summary>
-          <div class="answer">No. El servicio es mes a mes. Si decides cancelar, te entregamos un export completo de tu información en CSV y te ayudamos con la migración.</div>
+          <div class="answer">No. El servicio es mes a mes.</div>
         </details>
         <details class="faq-item">
           <summary>¿Hablan con el consejo de administración?<span class="plus">+</span></summary>
-          <div class="answer">Con gusto. Hacemos demos en vivo para el consejo y la asamblea, presenciales en Bogotá y Medellín o por videollamada en cualquier ciudad.</div>
+          <div class="answer">Con gusto. Hacemos demos en vivo para el consejo y la asamblea por videollamada y, siempre que sea posible, de forma presencial.</div>
         </details>
       </div>
     </div>
@@ -1733,7 +1736,7 @@
     <div class="foot-top">
       <div>
         <img src="assets/heztio-lockup-horizontal-white.png" alt="Heztio" />
-        <p class="blurb">Software de gestión para conjuntos residenciales en Colombia. Hecho en Cartagena de Indias, con cariño por los administradores que sostienen edificios completos en hojas de Excel.</p>
+        <p class="blurb">Software de gestión para conjuntos residenciales. Hecho en Cartagena de Indias, con cariño por los administradores que sostienen edificios completos en hojas de Excel.</p>
       </div>
       <div class="foot-col">
         <h4>Producto</h4>
@@ -1754,7 +1757,6 @@
         <h4>Soporte</h4>
         <a href="#">Centro de ayuda</a>
         <a href="mailto:info@heztio.com">info@heztio.com</a>
-        <a href="tel:+573145951905">+57 314 595 1905</a>
         <a href="#">Estado del servicio</a>
       </div>
     </div>
