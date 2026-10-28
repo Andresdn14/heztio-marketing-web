@@ -1,0 +1,183 @@
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-primary);
+    color: var(--fg-1);
+    background: var(--bg-1);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ============================================================
+     NAVIGATION
+     ============================================================ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.78);
+    border-bottom: 1px solid var(--border-1);
+  }
+  .nav-inner {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .nav-logo img { height: 28px; width: auto; }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    flex: 1;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--fg-2);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .nav-links a:hover { color: var(--fg-1); }
+  .nav-cta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  /* ============================================================
+     BUTTONS
+     ============================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: var(--radius-md);
+    transition: all var(--dur-base) var(--ease-out);
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--hz-navy-800);
+    color: var(--hz-white);
+    box-shadow: var(--shadow-sm);
+  }
+  .btn-primary:hover {
+    background: var(--hz-navy-900);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    color: var(--fg-1);
+  }
+  .btn-ghost:hover { background: var(--bg-4); }
+  .btn-light {
+    background: var(--hz-white);
+    color: var(--hz-navy-800);
+  }
+  .btn-light:hover { background: var(--hz-slate-100); transform: translateY(-1px); }
+  .btn-outline-light {
+    color: var(--hz-white);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .btn-outline-light:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+  .btn-lg {
+    padding: 16px 28px;
+    font-size: 16px;
+    border-radius: var(--radius-lg);
+  }
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer {
+    background: var(--hz-navy-900);
+    color: rgba(255,255,255,0.7);
+    padding: 64px 0 32px;
+  }
+  .foot-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .foot-top img { height: 28px; margin-bottom: 16px; }
+  .foot-top .blurb {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    max-width: 320px;
+    line-height: 1.5;
+  }
+  .foot-col h4 {
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 16px;
+  }
+  .foot-col a {
+    display: block;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    padding: 6px 0;
+    transition: color var(--dur-base) var(--ease-out);
+  }
+  .foot-col a:hover { color: white; }
+  .foot-bottom {
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+  .foot-bottom .legal { display: flex; gap: 24px; }
+
+  /* ---- Legal pages ---- */
+  .legal-hero { background: var(--bg-2, #f5f7fa); border-bottom: 1px solid var(--border-1); padding: 56px 0 40px; }
+  .legal-hero h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.15; color: var(--hz-navy-800); letter-spacing: -0.02em; }
+  .legal-hero p { margin-top: 12px; color: var(--fg-2); font-size: 15px; }
+  .legal-body { max-width: 760px; margin: 0 auto; padding: 48px 24px 88px; color: var(--fg-1); font-size: 16px; line-height: 1.7; overflow-wrap: anywhere; }
+  .legal-body h2 { margin: 40px 0 12px; font-size: 22px; line-height: 1.3; color: var(--hz-navy-800); }
+  .legal-body h3 { margin: 24px 0 8px; font-size: 17px; color: var(--hz-navy-800); }
+  .legal-body p { margin: 0 0 14px; }
+  .legal-body ul, .legal-body ol { margin: 0 0 14px 22px; }
+  .legal-body li { margin-bottom: 6px; }
+  .legal-body a { color: var(--hz-navy-800); text-decoration: underline; text-underline-offset: 2px; }
+  .legal-body a:hover { opacity: .75; }
+  .legal-body table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 15px; }
+  .legal-body th, .legal-body td { text-align: left; vertical-align: top; padding: 10px 12px; border: 1px solid var(--border-1); }
+  .legal-body th { background: var(--bg-2, #f5f7fa); }
+  .legal-toc { background: var(--bg-2, #f5f7fa); border: 1px solid var(--border-1); border-radius: 12px; padding: 16px 20px; margin-bottom: 8px; }
+  .legal-toc ol { margin-bottom: 0; }
+
+  @media (max-width: 980px) {
+    .container { padding: 0 24px; }
+    .nav-links { display: none; }
+    .foot-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .nav-inner { gap: 12px; }
+    .nav-cta .btn-primary { display: none; }
+    .foot-top { grid-template-columns: 1fr; }
+    .foot-bottom { flex-direction: column; gap: 12px; }
+    .legal-body { padding: 32px 20px 64px; }
+    .legal-body table, .legal-body thead, .legal-body tbody, .legal-body tr, .legal-body th, .legal-body td { display: block; width: 100%; }
+    .legal-body thead { display: none; }
+    .legal-body tr { margin-bottom: 12px; border: 1px solid var(--border-1); }
+    .legal-body td { border: 0; border-bottom: 1px solid var(--border-1); }
+  }
