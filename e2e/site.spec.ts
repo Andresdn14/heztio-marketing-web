@@ -20,10 +20,76 @@ test('external and asset links respond', async ({ page, request }) => {
   }
 });
 
-test('demo CTAs and contact mailto', async ({ page }) => {
+test('demo CTAs open the request modal; contact mailto + login stay', async ({ page }) => {
   await page.goto('/');
   expect(await page.locator('a[href^="mailto:info@heztio.com"]').count()).toBeGreaterThan(1);
-  await expect(page.getByRole('link', { name: 'Iniciar sesión' })).toHaveAttribute('href', /app\.heztio\.com/);
+  await expect(page.getByRole('link', { name: 'Iniciar sesión' })).toHaveAttribute('href', /app\.heztio\.com\/login/);
+  expect(await page.locator('a[href^="mailto:"][href*="demo"]').count()).toBe(0);
+  for (const id of ['funciones', 'plataformas', 'reportes', 'ecosistema', 'faq', 'contacto']) {
+    await expect(page.locator(`#${id}`)).toHaveCount(1);
+  }
+  const cta = page.locator('.hero-actions [data-demo]');
+  await cta.click();
+  const dialog = page.getByRole('dialog', { name: 'Solicita tu demo' });
+  await expect(dialog).toBeVisible();
+  await expect(page.locator('#d-name')).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+  await expect(cta).toBeFocused();
+});
+
+async function openAndFill(page: import('@playwright/test').Page) {
+  await page.goto('/');
+  await page.locator('.hero-actions [data-demo]').click();
+  await page.fill('#d-name', 'Andrea Salazar');
+  await page.fill('#d-email', 'andrea@example.com');
+  await page.fill('#d-units', '120');
+  await page.selectOption('#d-role', 'administrador');
+}
+
+test('demo form: client validation blocks an empty submit', async ({ page }) => {
+  let calls = 0;
+  await page.route('https://api.heztio.com/demo-requests', (r) => { calls++; return r.fulfill({ status: 201, body: '{"ok":true}' }); });
+  await page.goto('/');
+  await page.locator('.hero-actions [data-demo]').click();
+  await page.locator('.demo-submit').click();
+  await expect(page.locator('#d-name-err')).toHaveText('Escribe tu nombre.');
+  await expect(page.locator('#d-email')).toHaveAttribute('aria-invalid', 'true');
+  expect(calls).toBe(0);
+});
+
+test('demo form: 201 sends the contract payload and shows success', async ({ page }) => {
+  let body: any;
+  await page.route('https://api.heztio.com/demo-requests', async (r) => {
+    body = r.request().postDataJSON();
+    await new Promise((res) => setTimeout(res, 300));
+    return r.fulfill({ status: 201, contentType: 'application/json', body: '{"ok":true}' });
+  });
+  await openAndFill(page);
+  await page.locator('.demo-submit').click();
+  await expect(page.locator('.demo-submit')).toBeDisabled();
+  await expect(page.getByText('¡Gracias! Recibimos tu solicitud.')).toBeVisible();
+  expect(body).toEqual({ name: 'Andrea Salazar', email: 'andrea@example.com', company_website: '', role: 'administrador', units: 120 });
+});
+
+for (const [status, text] of [[400, 'Revisa los datos'], [429, 'Intenta de nuevo en unos minutos'], [500, 'No pudimos enviar']] as const) {
+  test(`demo form: ${status} shows a friendly error`, async ({ page }) => {
+    await page.route('https://api.heztio.com/demo-requests', (r) => r.fulfill({ status, body: '{}' }));
+    await openAndFill(page);
+    await page.locator('.demo-submit').click();
+    await expect(page.locator('.form-alert')).toContainText(text);
+    await expect(page.locator('.demo-submit')).toBeEnabled();
+  });
+}
+
+test('demo form: network error offers WhatsApp and email fallbacks', async ({ page }) => {
+  await page.route('https://api.heztio.com/demo-requests', (r) => r.abort('failed'));
+  await openAndFill(page);
+  await page.locator('.demo-submit').click();
+  const alert = page.locator('.form-alert');
+  await expect(alert).toContainText('No pudimos enviar');
+  await expect(alert.locator('a[href^="https://wa.me/"]')).toHaveCount(1);
+  await expect(alert.locator('a[href^="mailto:info@heztio.com"]')).toHaveCount(1);
 });
 
 test('375px: no horizontal overflow, no console errors', async ({ page }) => {
