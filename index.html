@@ -209,7 +209,6 @@
   @keyframes float-notif { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-3deg) translateY(-8px); } }
   @keyframes float-chip { 0%, 100% { transform: rotate(2deg) translateY(0); } 50% { transform: rotate(2deg) translateY(-12px); } }
   @keyframes pulse { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2.6); opacity: 0; } }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes fade-down { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
   @keyframes sticker-in { from { opacity: 0; transform: translateY(12px) rotate(var(--r, 0deg)) scale(0.9); } to { opacity: 1; transform: rotate(var(--r, 0deg)); } }
 
@@ -421,33 +420,6 @@
   .float-chip .ic { background: var(--hz-success-50); color: var(--hz-success-700); width: 32px; height: 32px; font-size: 16px; }
   .float-notif .txt, .float-chip .txt { font-size: 13px; line-height: 1.35; }
   .float-notif .txt small, .float-chip .txt small { display: block; font-size: 11px; color: var(--fg-3); margin-top: 2px; }
-
-  /* ============================================================
-     LOGO STRIP (marquee)
-     ============================================================ */
-  .logos { background: var(--hz-white); padding: 56px 0 48px; border-bottom: 1px solid var(--border-1); }
-  .logos-label {
-    text-align: center; text-wrap: balance;
-    font-family: var(--font-secondary); font-weight: 700; font-size: 12px;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--fg-3);
-    margin-bottom: 28px; padding: 0 24px;
-  }
-  .marquee {
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  }
-  .marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
-  .marquee:hover .marquee-track { animation-play-state: paused; }
-  .marquee ul { display: flex; gap: 56px; padding-right: 56px; }
-  .logo-item {
-    font-weight: 800; font-size: 22px; letter-spacing: -0.02em;
-    color: var(--hz-slate-500);
-    display: flex; align-items: center; gap: 10px;
-    white-space: nowrap;
-  }
-  .logo-item::before { content: ""; width: 10px; height: 10px; border-radius: 2px; background: var(--hz-slate-300); }
 
   /* ============================================================
      SECTION SCAFFOLD
@@ -820,40 +792,20 @@
   .demo-success .btn { justify-content: center; }
 
   /* ============================================================
-     STATS BAND
+     PILOTO FUNDADOR
      ============================================================ */
-  .stats-band { background: var(--hz-paper); padding: 80px 0; border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); }
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-  .stat-cell { position: relative; padding-left: 20px; }
-  .stat-cell::before {
-    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-    background: var(--hz-slate-200); border-radius: 2px;
-  }
-  .stat-cell:first-child::before { background: var(--hz-pink); }
-  .js .stat-cell::before { transform: scaleY(0); transform-origin: top; transition: transform 800ms var(--ease-out); }
-  .js .in > .stat-cell::before { transform: none; }
-  .stat-cell .num { font-weight: 800; font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.03em; line-height: 0.95; color: var(--fg-1); }
-  .stat-cell .lbl { font-size: 14px; color: var(--fg-2); margin-top: 12px; line-height: 1.4; }
-
-  /* ============================================================
-     TESTIMONIOS
-     ============================================================ */
-  .testimonial { background: var(--hz-white); }
-  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .testi {
+  .pilot { background: var(--hz-white); }
+  .pilot-card {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center;
     background: var(--hz-paper);
     border: 1px solid var(--border-1);
     border-radius: var(--radius-xl);
-    padding: 32px;
-    display: flex; flex-direction: column;
-    position: relative;
+    padding: 56px;
   }
-  .testi .quote-mark { font-size: 28px; color: var(--hz-pink); margin-bottom: 16px; }
-  .testi blockquote { font-weight: 700; font-size: 21px; line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 24px; flex: 1; text-wrap: pretty; }
-  .testi figcaption { display: flex; align-items: center; gap: 12px; padding-top: 20px; border-top: 1px solid var(--border-1); }
-  .testi .avatar { width: 44px; height: 44px; font-size: 14px; }
-  .testi .n { font-weight: 600; font-size: 14px; }
-  .testi .r { font-size: 13px; color: var(--fg-3); }
+  .pilot-card .section-title { margin-bottom: 16px; }
+  .pilot-card .copy p { font-size: 18px; line-height: 1.6; color: var(--fg-2); text-wrap: pretty; margin-bottom: 28px; }
+  .pilot-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .pilot-card .check-list li { font-size: 16px; }
 
   /* ============================================================
      CÓMO EMPEZAR — steps
@@ -998,8 +950,6 @@
     .eco-grid { grid-template-columns: 1fr 1fr; }
     .eco-main { grid-column: 1 / -1; grid-row: auto; }
     .split-grid { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: 1fr 1fr; gap: 40px 24px; }
-    .testi-grid { grid-template-columns: 1fr; }
     .faq-grid { grid-template-columns: 1fr; gap: 32px; }
     .faq-aside { position: static; }
     .foot-top { grid-template-columns: 1fr 1fr; }
@@ -1045,9 +995,8 @@
     .form-grid { grid-template-columns: 1fr; gap: 14px; }
     .soon { padding: 28px 24px; }
     .split-card { padding: 28px 22px; }
-    .stats-band { padding: 64px 0; }
-    .testi { padding: 26px; }
-    .testi blockquote { font-size: 19px; }
+    .pilot-card { grid-template-columns: 1fr; gap: 28px; padding: 32px 22px; }
+    .pilot-actions .btn { flex: 1 1 100%; justify-content: center; }
     .faq-item summary { font-size: 17px; padding: 20px 0; }
     .faq-item .answer { padding-right: 0; }
     .cta-final { padding: 96px 0; }
@@ -1058,7 +1007,6 @@
     .foot-bottom { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 380px) {
-    .stats-grid { grid-template-columns: 1fr; }
     .nav-logo img { height: 24px; }
   }
 
@@ -1071,10 +1019,6 @@
       transition-duration: 0.01ms !important;
       transition-delay: 0ms !important;
     }
-    .marquee { -webkit-mask-image: none; mask-image: none; }
-    .marquee-track { width: auto; justify-content: center; }
-    .marquee ul { flex-wrap: wrap; justify-content: center; gap: 16px 40px; padding: 0 24px; }
-    .marquee ul[aria-hidden] { display: none; }
   }
 </style>
 </head>
@@ -1162,7 +1106,7 @@
         <div class="product-card-body">
           <div class="pc-header">
             <div>
-              <div class="pc-title">Conjunto Altavista</div>
+              <div class="pc-title">Conjunto Demo</div>
               <div class="pc-sub">Lunes 28 de abril · 124 unidades</div>
             </div>
             <span class="badge success"><span class="live-dot"></span>En línea</span>
@@ -1201,33 +1145,6 @@
         <div class="ic"><svg class="ic-svg" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
         <div class="txt"><strong>Paquete en portería</strong> — Apto 502<small>Mercado Libre · hace 4 min</small></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     LOGO STRIP
-     ============================================================ -->
-<section class="logos" aria-label="Conjuntos que usan Heztio" data-loop>
-  <p class="logos-label">Confían en Heztio conjuntos en Bogotá, Medellín, Cali y Barranquilla</p>
-  <div class="marquee">
-    <div class="marquee-track">
-      <ul>
-        <li class="logo-item">Altavista</li>
-        <li class="logo-item">Mirador del Lago</li>
-        <li class="logo-item">Reserva 93</li>
-        <li class="logo-item">Parque Central</li>
-        <li class="logo-item">Torres del Río</li>
-        <li class="logo-item">Bosques de Salitre</li>
-      </ul>
-      <ul aria-hidden="true">
-        <li class="logo-item">Altavista</li>
-        <li class="logo-item">Mirador del Lago</li>
-        <li class="logo-item">Reserva 93</li>
-        <li class="logo-item">Parque Central</li>
-        <li class="logo-item">Torres del Río</li>
-        <li class="logo-item">Bosques de Salitre</li>
-      </ul>
     </div>
   </div>
 </section>
@@ -1415,7 +1332,7 @@
             <div class="bf-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">app.heztio.com</span></div>
             <div class="admin-mock" data-inview>
               <div class="head">
-                <div><div class="title">Actividad de la semana</div><div class="sub">Últimos 7 días · conjunto Altavista</div></div>
+                <div><div class="title">Actividad de la semana</div><div class="sub">Últimos 7 días · conjunto Demo</div></div>
                 <span class="badge">Activo</span>
               </div>
               <div class="chart">
@@ -1454,7 +1371,7 @@
           <div class="phone-frame">
             <div class="phone-mock stagger">
               <div class="notch"></div>
-              <div class="ph-hello"><small>Conjunto Altavista · Apto 502</small>Hola, Carolina</div>
+              <div class="ph-hello"><small>Conjunto Demo · Apto 502</small>Hola, Carolina</div>
               <div class="ph-card">
                 <div class="lbl"><span class="live-dot"></span>Paquete en portería</div>
                 <div class="val">Mercado Libre</div>
@@ -1510,7 +1427,7 @@
 
     <div class="report-mock reveal" style="--d:1" aria-hidden="true" data-inview>
       <div class="rm-head">
-        <div><div class="rm-title">Resumen del periodo</div><div class="rm-sub">Conjunto Altavista · 1 – 31 oct 2026</div></div>
+        <div><div class="rm-title">Resumen del periodo</div><div class="rm-sub">Conjunto Demo · 1 – 31 oct 2026</div></div>
         <div class="rm-formats"><span>.xlsx</span><span>.pdf</span></div>
       </div>
       <div class="rm-kpis">
@@ -1603,56 +1520,26 @@
 </section>
 
 <!-- ============================================================
-     STATS BAND
+     PILOTO FUNDADOR
      ============================================================ -->
-<section class="stats-band" aria-label="Heztio en cifras">
+<section id="piloto" class="section pilot" aria-labelledby="piloto-title">
   <div class="container">
-    <div class="stats-grid stagger">
-      <div class="stat-cell"><div class="num">320+</div><div class="lbl">conjuntos<br />activos</div></div>
-      <div class="stat-cell"><div class="num">48k</div><div class="lbl">unidades<br />residenciales gestionadas</div></div>
-      <div class="stat-cell"><div class="num">8 min</div><div class="lbl">tiempo promedio<br />de respuesta en chat</div></div>
-      <div class="stat-cell"><div class="num">7 días</div><div class="lbl">implementación<br />promedio del producto</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     TESTIMONIOS
-     ============================================================ -->
-<section id="testimonios" class="section testimonial" aria-labelledby="testimonios-title">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Lo que dicen los administradores</span>
-      <h2 class="section-title" id="testimonios-title">Menos llamadas. Menos grupos. Asambleas que sí llegan a quórum.</h2>
-    </div>
-
-    <div class="testi-grid">
-      <figure class="testi reveal lift">
-        <svg class="ic-svg quote-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
-        <blockquote>«Pasamos de un cuaderno en portería a tener cada paquete y cada reserva con historial. La diferencia para el residente es noche y día.»</blockquote>
-        <figcaption>
-          <div class="avatar" aria-hidden="true">AS</div>
-          <div><div class="n">Andrea Salazar</div><div class="r">Administradora — Conjunto Altavista, Medellín</div></div>
-        </figcaption>
-      </figure>
-
-      <figure class="testi reveal lift" style="--d:1">
-        <svg class="ic-svg quote-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
-        <blockquote>«Lo que más valoran los residentes es la paz. Se acabaron los grupos de WhatsApp con quejas a las 11 de la noche.»</blockquote>
-        <figcaption>
-          <div class="avatar" aria-hidden="true">JR</div>
-          <div><div class="n">Jorge Restrepo</div><div class="r">Presidente del consejo — Reserva 93, Bogotá</div></div>
-        </figcaption>
-      </figure>
-
-      <figure class="testi reveal lift" style="--d:2">
-        <svg class="ic-svg quote-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
-        <blockquote>«El chat directo con la administración cambió todo. Antes me llamaban a las 10 de la noche; ahora me escriben y respondo cuando puedo, con todo registrado.»</blockquote>
-        <figcaption>
-          <div class="avatar" aria-hidden="true">LM</div>
-          <div><div class="n">Liliana Muñoz</div><div class="r">Administradora independiente — Cali</div></div>
-        </figcaption>
-      </figure>
+    <div class="pilot-card reveal">
+      <div class="copy">
+        <span class="eyebrow">Piloto fundador</span>
+        <h2 class="section-title" id="piloto-title">Abrimos cupos para 3 conjuntos en Cartagena.</h2>
+        <p>Instalamos y capacitamos sin costo a cambio de ser caso de éxito. Trabajas directo con el equipo que construye Heztio.</p>
+        <div class="pilot-actions">
+          <a href="https://wa.me/573145951905?text=Hola%2C%20quiero%20postular%20mi%20conjunto%20al%20piloto%20fundador%20de%20Heztio" class="btn btn-primary btn-lg" rel="noopener">Escribir por WhatsApp</a>
+          <a href="#demo" class="btn btn-ghost btn-lg" data-demo>Solicitar demo</a>
+        </div>
+      </div>
+      <ul class="check-list">
+        <li><span class="check" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Instalación y capacitación sin costo para portería y administración</span></li>
+        <li><span class="check" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Migramos tus residentes desde Excel</span></li>
+        <li><span class="check" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Soporte directo por WhatsApp con el equipo fundador</span></li>
+        <li><span class="check" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>Sin permanencia</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -1791,7 +1678,7 @@
       <nav class="foot-col" aria-labelledby="f-empresa">
         <h2 id="f-empresa">Empresa</h2>
         <ul>
-          <li><a href="#testimonios">Clientes</a></li>
+          <li><a href="#piloto">Piloto fundador</a></li>
           <li><a href="#como-empezar">Implementación</a></li>
           <li><a href="#demo" data-demo>Solicitar demo</a></li>
         </ul>
