@@ -4,8 +4,35 @@
   var d = document;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Site config — the one place to set the public price signal.
+     Leave PRICE empty until there is a confirmed number, e.g. 'Desde $X por unidad al mes'. */
+  var PRICE = '';
+  if (PRICE) d.querySelectorAll('[data-price]').forEach(function (el) { el.textContent = PRICE; });
+
+  /* Conversion events. Sent to whichever analytics is loaded (Plausible, Vercel, GA/GTM);
+     a no-op when none is. WhatsApp links also carry a [ref: …] tag in the prefilled text. */
+  function track(name, data) {
+    try {
+      if (typeof window.plausible === 'function') window.plausible(name, { props: data });
+      if (typeof window.va === 'function') window.va('event', { name: name, data: data });
+      if (typeof window.gtag === 'function') window.gtag('event', name, data);
+      else if (window.dataLayer) window.dataLayer.push(Object.assign({ event: name }, data));
+    } catch (err) { /* never block navigation */ }
+  }
+  var page = location.pathname.replace(/^\/|\.html$/g, '') || 'home';
+  var lastSrc = (/[?&]src=([\w-]+)/.exec(location.search) || [0, page])[1];
+  d.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href*="wa.me/"], [data-demo]');
+    if (!a) return;
+    var src = (a.getAttribute('data-src') || 'link') + (page === 'home' ? '' : '-' + page);
+    if (a.hasAttribute('data-demo')) { lastSrc = src; track('demo_open', { src: src }); }
+    else track('whatsapp_click', { src: src });
+  });
+
   /* Sticky nav shadow */
   var nav = d.querySelector('.nav');
+  var toggle = d.querySelector('.nav-toggle');
+  var menu = d.getElementById('mobile-menu');
   var ticking = false;
   function onScroll() {
     if (ticking) return;
@@ -15,17 +42,16 @@
       ticking = false;
     });
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  if (nav) { window.addEventListener('scroll', onScroll, { passive: true }); onScroll(); }
 
   /* Mobile menu */
-  var toggle = d.querySelector('.nav-toggle');
-  var menu = d.getElementById('mobile-menu');
   function setOpen(open) {
+    if (!toggle) return;
     nav.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
   }
+  if (toggle && menu) {
   toggle.addEventListener('click', function () {
     setOpen(!nav.classList.contains('is-open'));
   });
@@ -41,6 +67,7 @@
   window.matchMedia('(min-width: 981px)').addEventListener('change', function (m) {
     if (m.matches) setOpen(false);
   });
+  }
 
   /* Scroll reveals */
   var targets = d.querySelectorAll('.reveal, .stagger, [data-inview]');
@@ -80,8 +107,10 @@
     var tried = false;
     var rules = {
       name: function (v) { return v.length >= 2 || 'Escribe tu nombre.'; },
+      phone: function (v) { return /^\+?[\d\s().-]{7,20}$/.test(v) || (v ? 'Revisa el número; parece incompleto.' : 'Escribe tu WhatsApp.'); },
+      building: function (v) { return v.length >= 2 || 'Escribe el nombre del conjunto.'; },
+      city: function (v) { return !!v || 'Selecciona la ciudad.'; },
       email: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) || (v ? 'Revisa tu correo; parece incompleto.' : 'Escribe tu correo.'); },
-      phone: function (v) { return !v || /^\+?[\d\s().-]{7,20}$/.test(v) || 'Escribe un teléfono válido.'; },
       units: function (v) { return !v || (/^\d{1,6}$/.test(v) && +v > 0) || 'Escribe solo números, por ejemplo 120.'; }
     };
 
@@ -99,7 +128,11 @@
       Object.keys(rules).forEach(function (n) {
         if (!check(n) && !first) first = form.elements[n];
       });
-      if (first) first.focus();
+      if (first) {
+        var more = first.closest('details');
+        if (more) more.open = true;
+        first.focus();
+      }
       return !first;
     }
     form.addEventListener('input', function (e) {
@@ -131,7 +164,7 @@
 
     function open(e) {
       if (e) e.preventDefault();
-      if (nav.classList.contains('is-open')) setOpen(false);
+      if (nav && nav.classList.contains('is-open')) setOpen(false);
       lastFocus = d.activeElement;
       if (!okView.hidden) reset();
       dlg.showModal();
@@ -169,9 +202,11 @@
       showAlert('');
       if (!validate()) return;
       var v = function (n) { return form.elements[n].value.trim(); };
-      var body = { name: v('name'), email: v('email'), company_website: form.elements.company_website.value };
-      ['phone', 'building', 'role', 'message'].forEach(function (n) { if (v(n)) body[n] = v(n); });
+      var body = { name: v('name'), email: v('email'), phone: v('phone'), building: v('building'), company_website: form.elements.company_website.value };
+      if (v('role')) body.role = v('role');
       if (v('units')) body.units = parseInt(v('units'), 10);
+      /* The API has no city/source fields; they travel at the top of the message. */
+      body.message = 'Ciudad: ' + v('city') + '\nOrigen: web-' + lastSrc + (v('message') ? '\n\n' + v('message') : '');
       setLoading(true);
       fetch(API, {
         method: 'POST',
@@ -180,6 +215,7 @@
       }).then(function (r) {
         setLoading(false);
         if (r.ok) {
+          track('demo_submit', { src: lastSrc, city: v('city') });
           formView.hidden = true;
           okView.hidden = false;
           dlg.setAttribute('aria-labelledby', 'demo-success-title');

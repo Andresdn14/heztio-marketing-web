@@ -41,8 +41,12 @@ test('demo CTAs open the request modal; contact mailto + login stay', async ({ p
 async function openAndFill(page: import('@playwright/test').Page) {
   await page.goto('/');
   await page.locator('.hero-actions [data-demo]').click();
-  await page.fill('#d-name', 'Andrea Salazar');
-  await page.fill('#d-email', 'andrea@example.com');
+  await page.fill('#d-name', 'Ana Pérez');
+  await page.fill('#d-phone', '300 123 4567');
+  await page.fill('#d-building', 'Conjunto Prueba');
+  await page.selectOption('#d-city', 'Cartagena');
+  await page.fill('#d-email', 'ana@example.com');
+  await page.locator('.more summary').click();
   await page.fill('#d-units', '120');
   await page.selectOption('#d-role', 'administrador');
 }
@@ -54,7 +58,10 @@ test('demo form: client validation blocks an empty submit', async ({ page }) => 
   await page.locator('.hero-actions [data-demo]').click();
   await page.locator('.demo-submit').click();
   await expect(page.locator('#d-name-err')).toHaveText('Escribe tu nombre.');
-  await expect(page.locator('#d-email')).toHaveAttribute('aria-invalid', 'true');
+  for (const id of ['d-phone', 'd-building', 'd-city', 'd-email']) {
+    await expect(page.locator(`#${id}`)).toHaveAttribute('aria-invalid', 'true');
+  }
+  await expect(page.locator('#d-role')).not.toHaveAttribute('aria-invalid', 'true');
   expect(calls).toBe(0);
 });
 
@@ -69,7 +76,12 @@ test('demo form: 201 sends the contract payload and shows success', async ({ pag
   await page.locator('.demo-submit').click();
   await expect(page.locator('.demo-submit')).toBeDisabled();
   await expect(page.getByText('¡Gracias! Recibimos tu solicitud.')).toBeVisible();
-  expect(body).toEqual({ name: 'Andrea Salazar', email: 'andrea@example.com', company_website: '', role: 'administrador', units: 120 });
+  await expect(page.getByText('Te escribimos por WhatsApp el mismo día hábil')).toBeVisible();
+  expect(body).toEqual({
+    name: 'Ana Pérez', email: 'ana@example.com', phone: '300 123 4567', building: 'Conjunto Prueba',
+    company_website: '', role: 'administrador', units: 120,
+    message: 'Ciudad: Cartagena\nOrigen: web-hero',
+  });
 });
 
 for (const [status, text] of [[400, 'Revisa los datos'], [429, 'Intenta de nuevo en unos minutos'], [500, 'No pudimos enviar']] as const) {
@@ -123,3 +135,45 @@ test('home footer legal links point at the legal pages', async ({ page }) => {
     await expect(page.locator(`.legal a[href="${h}"]`)).toHaveCount(1);
   }
 });
+
+test('no unverified social proof anywhere on the public pages', async ({ request }) => {
+  const banned = /320\+|48k|8 min|Altavista|Mirador del Lago|Reserva 93|Parque Central|Torres del R[ií]o|Bosques de Salitre|Andrea Salazar|Jorge Restrepo|Liliana Mu[ñn]oz|testimonios|Heztio Lab|Demo Building/i;
+  for (const path of ['/', '/cartagena', '/barranquilla', '/santa-marta', '/terminos', '/privacidad', '/tratamiento-de-datos']) {
+    const html = await (await request.get(path)).text();
+    expect(html.match(banned)?.[0] ?? null, path).toBeNull();
+  }
+});
+
+test('WhatsApp is the hero primary CTA and every wa.me link carries a ref', async ({ page }) => {
+  await page.goto('/');
+  const first = page.locator('.hero-actions a').first();
+  await expect(first).toHaveText(/Escribir por WhatsApp/);
+  await expect(first).toHaveAttribute('href', /^https:\/\/wa\.me\/573145951905\?text=.*ref%3A%20hero/);
+  const was = await page.$$eval('a[href*="wa.me/"]', (as) => as.map((a) => a.getAttribute('href') || ''));
+  for (const h of was) expect(h, h).toMatch(/ref%3A%20[\w-]+/);
+});
+
+test('375px: floating WhatsApp button shows; hidden on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto('/');
+  await expect(page.locator('.wa-float')).toBeVisible();
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await expect(page.locator('.wa-float')).toBeHidden();
+});
+
+test('one implementation wording: 7 días hábiles', async ({ request }) => {
+  const html = await (await request.get('/')).text();
+  expect(html).not.toMatch(/el día 8|en una semana|Implementación en 7 días</);
+  expect(html).toMatch(/7 días hábiles/);
+});
+
+for (const slug of ['cartagena', 'barranquilla', 'santa-marta']) {
+  test(`city page /${slug}: 200, WhatsApp CTA with ref, 375px`, async ({ page, request }) => {
+    expect((await request.get(`/${slug}`)).status()).toBe(200);
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto(`/${slug}`);
+    await expect(page.locator('h1')).toContainText('Software para conjuntos residenciales en');
+    await expect(page.locator(`.city-cta a[href*="ref%3A%20${slug}"]`).first()).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
+  });
+}
