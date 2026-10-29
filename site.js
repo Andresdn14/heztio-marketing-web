@@ -4,11 +4,6 @@
   var d = document;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Site config — the one place to set the public price signal.
-     Leave PRICE empty until there is a confirmed number, e.g. 'Desde $X por unidad al mes'. */
-  var PRICE = '';
-  if (PRICE) d.querySelectorAll('[data-price]').forEach(function (el) { el.textContent = PRICE; });
-
   /* Conversion events. Sent to whichever analytics is loaded (Plausible, Vercel, GA/GTM);
      a no-op when none is. WhatsApp links also carry a [ref: …] tag in the prefilled text. */
   function track(name, data) {
