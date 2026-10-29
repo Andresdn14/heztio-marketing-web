@@ -12,7 +12,7 @@ test('no dead "#" links and all anchors resolve', async ({ page }) => {
 
 test('external and asset links respond', async ({ page, request }) => {
   await page.goto('/');
-  const urls = await page.$$eval('a[href^="http"], img[src], link[href]', (els) =>
+  const urls = await page.$$eval('a[href^="http"], img[src], link[href]:not([rel=preconnect])', (els) =>
     els.map((e) => (e as any).href || (e as any).src));
   for (const u of [...new Set(urls)]) {
     const r = await request.get(u);

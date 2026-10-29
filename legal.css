@@ -35,7 +35,9 @@
     align-items: center;
     gap: 40px;
   }
+  .nav-logo { flex-shrink: 0; }
   .nav-logo img { height: 28px; width: auto; }
+  :focus-visible { outline: 2px solid var(--border-focus); outline-offset: 3px; border-radius: 6px; }
   .nav-links {
     display: flex;
     gap: 32px;
