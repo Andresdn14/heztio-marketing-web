@@ -18,3 +18,7 @@ Part of the Heztio polyrepo.
 3. Contact details: Heztio S.A.S., NIT 901.455.663, Cartagena de Indias · info@heztio.com · +57 314 595 1905.
 4. Regenerate logo derivatives with `VisualIdentity/build_brand_kit.py`; don't hand-export.
 5. Check the page at phone width before committing.
+
+## Docs
+
+`docs/FEATURES.md` — feature inventory (and sibling parity). **Every feature PR updates it** (suite `docs/CONVENTIONS.md` §10).
