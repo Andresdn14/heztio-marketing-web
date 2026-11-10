@@ -594,6 +594,7 @@
 
   /* platform frames (Portal in a browser, app in a phone) */
   .split-card .platform-cta { margin-top: 28px; align-self: flex-start; }
+  .split-card .store-links { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
   .browser-frame { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.04); }
   .browser-frame .bf-bar { height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
   .browser-frame .bf-bar .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.25); }
@@ -1407,6 +1408,10 @@
             </div>
           </div>
         </div>
+        <div class="store-links">
+          <a href="https://apps.apple.com/app/id6770427761" class="btn btn-primary" target="_blank" rel="noopener">Descargar en App Store <svg class="ic-svg arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+          <a href="https://play.google.com/store/apps/details?id=com.heztio.app" class="btn btn-primary" target="_blank" rel="noopener">Descargar en Google Play <svg class="ic-svg arrow" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+        </div>
       </article>
     </div>
   </div>
@@ -1609,7 +1614,7 @@
         </details>
         <details class="faq-item">
           <summary>¿Heztio tiene app móvil?<span class="plus" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></summary>
-          <div class="answer">Sí. Heztio tiene app móvil para iOS y Android, para residentes, portería y administración, además del Portal web en app.heztio.com. Cada residente activa su cuenta con la invitación que le envía su administración.</div>
+          <div class="answer">Sí. Heztio tiene app móvil para iOS y Android, para residentes, portería y administración, además del Portal web en app.heztio.com. Descárgala en el <a href="https://apps.apple.com/app/id6770427761" class="text-link" target="_blank" rel="noopener">App Store</a> o en <a href="https://play.google.com/store/apps/details?id=com.heztio.app" class="text-link" target="_blank" rel="noopener">Google Play</a>. Cada residente activa su cuenta con la invitación que le envía su administración.</div>
         </details>
         <details class="faq-item">
           <summary>¿Heztio sirve para cobrar la administración?<span class="plus" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></summary>
@@ -1693,6 +1698,8 @@
           <li><a href="#reportes">Reportes</a></li>
           <li><a href="#ecosistema">Hoy y lo que viene</a></li>
           <li><a href="https://inn.heztio.com" rel="noopener">Heztio Inn</a></li>
+          <li><a href="https://apps.apple.com/app/id6770427761" target="_blank" rel="noopener">App Store</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.heztio.app" target="_blank" rel="noopener">Google Play</a></li>
         </ul>
       </nav>
       <nav class="foot-col" aria-labelledby="f-empresa">
